@@ -4,8 +4,6 @@ import com.kodilla.ecommercee.domain.ProductDto;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.attribute.standard.Media;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,22 +12,26 @@ import java.util.List;
 public class
 ProductController {
     @RequestMapping(method = RequestMethod.GET, value = "getProducts")
-    public List<ProductDto> getProducts(){
+    public List<ProductDto> getProducts() {
         return new ArrayList<>();
     }
+
     @GetMapping(value = "getProduct")
-    public ProductDto getProduct(@RequestParam Long productId){
-        return new ProductDto();
+    public ProductDto getProduct(@RequestParam Long productId) {
+        return new ProductDto(1L,"name","description",10L);
     }
+
     @PostMapping(value = "createProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createProduct(@RequestBody ProductDto productDto){
+    public void createProduct(@RequestBody ProductDto productDto) {
     }
+
     @PutMapping(value = "updateProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ProductDto updateProduct(@RequestBody ProductDto productDto){
-        return new ProductDto();
+    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
+        return new ProductDto(1L,"name","description",10L);
     }
+
     @DeleteMapping(value = "deleteProduct")
-    public void deleteProduct(@RequestParam Long productId){
+    public void deleteProduct(@RequestParam Long productId) {
 
     }
 }
