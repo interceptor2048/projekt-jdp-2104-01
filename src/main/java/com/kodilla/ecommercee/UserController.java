@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateUser")
-    public UserDto updateTask(@RequestBody UserDto userDto) {
+    public UserDto updateUser(@RequestBody UserDto userDto) {
         return userMapper.mapToUserDto(new User());
     }
 
