@@ -13,6 +13,7 @@ public class GroupController {
 
     @RequestMapping(method = RequestMethod.GET, value = "lists")
     public List<GroupDto> getGroup() {
+        //throw new IllegalArgumentException("Not implemented yet");
         List<GroupDto> listGroup = new ArrayList<>();
         listGroup.add(new GroupDto(1L, "Test name of group"));
         listGroup.add(new GroupDto(2L, "Another test of group"));
