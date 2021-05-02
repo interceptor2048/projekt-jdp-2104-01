@@ -15,7 +15,7 @@ public class OrderController {
         return new ArrayList<>();
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "addOrder")
+    @RequestMapping(method = RequestMethod.POST,value = "createOrder")
     public void createOrder(@RequestBody OrderDto orderDto){
         return;
     }
