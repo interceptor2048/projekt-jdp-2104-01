@@ -24,8 +24,10 @@ public class Product {
     @NotNull
     @Column(name= "PRICE")
     private Long price;
-    @ManyToOne
-    @JoinColumn(name= "GROUP_ID")
+//    @ManyToOne
+//    @JoinColumn(name= "GROUP_ID")
+    @NotNull
+    @Column(name = "GROUP_ID")
     private String groupId;
 //    @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(
