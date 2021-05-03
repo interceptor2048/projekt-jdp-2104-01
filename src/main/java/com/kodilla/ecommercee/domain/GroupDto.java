@@ -9,4 +9,7 @@ public class GroupDto {
 
     private Long id;
     private String name;
+
+    public GroupDto() {
+    }
 }
