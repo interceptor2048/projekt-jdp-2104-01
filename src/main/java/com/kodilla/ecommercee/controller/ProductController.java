@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.controller;
 
+
 import com.kodilla.ecommercee.domain.ProductDto;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ ProductController {
 
     @GetMapping(value = "getProduct")
     public ProductDto getProduct(@RequestParam Long productId) {
-        return new ProductDto(1L,"name","description",10L,"1");
+        return new ProductDto(1L, "name", "description", 10L, "1");
     }
 
     @PostMapping(value = "createProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -27,7 +28,7 @@ ProductController {
 
     @PutMapping(value = "updateProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        return new ProductDto(1L,"name","description",10L, "1");
+        return new ProductDto(1L, "name", "description", 10L, "1");
     }
 
     @DeleteMapping(value = "deleteProduct")
