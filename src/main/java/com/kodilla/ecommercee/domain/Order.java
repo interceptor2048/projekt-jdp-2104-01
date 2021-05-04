@@ -25,7 +25,7 @@ public class Order {
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "CART_ID", referencedColumnName = "cart_id")
+    @JoinColumn(name = "CART_ID", referencedColumnName = "cart_id", nullable = false)
     private Cart cart;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -34,7 +34,5 @@ public class Order {
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
     )
     private List<Product> productList;
-
-
 
 }
