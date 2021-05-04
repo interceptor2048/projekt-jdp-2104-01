@@ -39,5 +39,6 @@ public class Product {
     )
     private List<Cart> cartList = new ArrayList<>();
 
+//@ManyToMany(cascade = CascadeType.ALL, mappedBy = "productList")
 //    private List<Order> orderList = new ArrayList<>();
 }
