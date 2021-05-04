@@ -38,6 +38,8 @@ public class Product {
 //                    referencedColumnName ="PRODUCT_ID")}
 //    )
 //    private List<Cart> cartList = new ArrayList<>();
+//
 
-//    private List<Order> orderList = new ArrayList<>();
+    @ManyToMany(mappedBy = "productList")
+    private List<Order> orderList = new ArrayList<>();
 }

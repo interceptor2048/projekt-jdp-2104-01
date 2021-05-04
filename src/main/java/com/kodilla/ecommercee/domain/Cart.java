@@ -18,4 +18,7 @@ public class Cart {
     @NotNull
     @Column(name = "order_date")
     private Date orderDate;
+
+    @OneToOne(mappedBy = "cart")
+    private Order order;
 }
