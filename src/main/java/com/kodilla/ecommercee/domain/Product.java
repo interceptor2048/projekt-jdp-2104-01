@@ -29,15 +29,14 @@ public class Product {
     @NotNull
     @Column(name = "GROUP_ID")
     private String groupId;
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name="JOIN_PRODUCTS_CARTS",
-//            joinColumns = {@JoinColumn(name = "PRODUCT_ID",
-//                    referencedColumnName ="PRODUCT_ID")},
-//            inverseJoinColumns = {@JoinColumn(name = "CART_ID",
-//                    referencedColumnName = "CART_ID")}
-//    )
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartId")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="JOIN_PRODUCTS_CARTS",
+            joinColumns = {@JoinColumn(name = "PRODUCT_ID",
+                    referencedColumnName ="ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CART_ID",
+                    referencedColumnName = "CART_ID")}
+    )
     private List<Cart> cartList = new ArrayList<>();
 
 //@ManyToMany(cascade = CascadeType.ALL, mappedBy = "productList")
