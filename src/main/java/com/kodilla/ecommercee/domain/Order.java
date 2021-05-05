@@ -17,15 +17,16 @@ public class Order {
     @GeneratedValue
     @NotNull
     @Column(name = "ORDER_ID", unique = true)
-    private Long orderId;
+    private Long id;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "USER_ID", nullable = false)
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "CART_ID", referencedColumnName = "cart_id", nullable = false)
+    @JoinColumn(name = "CART_ID", referencedColumnName = "cart_id")
     private Cart cart;
 
     @ManyToMany(cascade = CascadeType.ALL)
