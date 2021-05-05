@@ -13,13 +13,18 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private long Id;
+    private long id;
 
     @NotNull
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(
+            targetEntity = Product.class,
+            mappedBy = "group",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
     private List<Product> products;
 
 }
