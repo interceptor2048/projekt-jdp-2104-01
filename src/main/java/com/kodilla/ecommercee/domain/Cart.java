@@ -28,5 +28,5 @@ public class Cart {
             joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
     )
-    private List<Product> listOfProduct  = new ArrayList<>();
+    private List<Product> listOfProducts  = new ArrayList<>();
 }
