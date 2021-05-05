@@ -4,18 +4,29 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
-@Entity(name = "carts")
+@Entity(name = "CARTS")
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_id")
+    @NotNull
+    @Column(name = "CART_ID")
     private Long cartId;
 
     @NotNull
-    @Column(name = "order_date")
+    @Column(name = "ORDER_DATE")
     private Date orderDate;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "JOIN_CART_PROD",
+            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
+    )
+    private List<Product> listOfProduct  = new ArrayList<>();
 }

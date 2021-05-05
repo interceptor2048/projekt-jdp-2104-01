@@ -13,7 +13,7 @@ public class Product {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "PRODUCT_ID", unique = true)
+    @Column(name = "ID", unique = true)
     private Long productId;
     @NotNull
     @Column(name= "NAME")
@@ -23,7 +23,7 @@ public class Product {
     private String description;
     @NotNull
     @Column(name= "PRICE")
-    private Long price;
+    private Double price;
 //    @ManyToOne
 //    @JoinColumn(name= "GROUP_ID")
     @NotNull
@@ -40,4 +40,7 @@ public class Product {
 //    private List<Cart> cartList = new ArrayList<>();
 
 //    private List<Order> orderList = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "listOfProducts")
+    private List<Cart> listOfCarts = new ArrayList<>();
 }
