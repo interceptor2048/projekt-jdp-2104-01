@@ -19,7 +19,7 @@ public class Group {
     @Column(name = "NAME")
     private String name;
 
-//    @OneToMany(mappedBy = "group")
-//    private List<Product> products;
+    @OneToMany(mappedBy = "group")
+    private List<Product> products;
 
 }
