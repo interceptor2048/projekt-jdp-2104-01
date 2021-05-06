@@ -29,7 +29,7 @@ public class Product {
     @ManyToOne
     @JoinColumn(name= "GROUP_ID")
     @NotNull
-    private Group group;
+    private ProductsGroup productsGroup;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name="JOIN_CART_PROD",
