@@ -23,9 +23,9 @@ public class GroupDaoTestSuite {
     @Test
     public void testSaveGroup(){
         //Given
-        Group group = new Group("test name");
+        Group group = makeGroup("TestGroup");
         List<Product> products = new ArrayList<>();
-        Product product = new Product("test1","test2",12.1);
+        Product product = makeProduct("test1","test2",12.1);
         product.setGroup(group);
         products.add(product);
         group.setProducts(products);
@@ -41,5 +41,19 @@ public class GroupDaoTestSuite {
         } catch(Exception e){
 
         }
+    }
+
+    private Group makeGroup(String name){
+        Group group = new Group();
+        group.setName(name);
+        return group;
+    }
+
+    private Product makeProduct(String name,String description,double price){
+        Product product = new Product();
+        product.setName(name);
+        product.setDescription(description);
+        product.setPrice(price);
+        return product;
     }
 }

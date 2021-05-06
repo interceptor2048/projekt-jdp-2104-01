@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @Entity(name = "PRODUCTS")
 public class Product {
     @Id
@@ -45,10 +44,4 @@ public class Product {
 //@ManyToMany(cascade = CascadeType.ALL, mappedBy = "productList")
 //    private List<Order> orderList = new ArrayList<>();
 
-
-    public Product(@NotNull String name, @NotNull String description, @NotNull Double price) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
 }

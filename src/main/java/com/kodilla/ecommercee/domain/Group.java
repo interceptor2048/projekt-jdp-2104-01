@@ -32,8 +32,4 @@ public class Group {
             fetch = FetchType.EAGER
     )
     private List<Product> products;
-
-    public Group(String name){
-        this.name = name;
-    }
 }
