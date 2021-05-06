@@ -14,7 +14,7 @@ public class Product {
     @GeneratedValue
     @NotNull
     @Column(name = "ID", unique = true)
-    private Long productId;
+    private Long id;
     @NotNull
     @Column(name= "NAME")
     private String name;
@@ -24,23 +24,22 @@ public class Product {
     @NotNull
     @Column(name= "PRICE")
     private Double price;
-//    @ManyToOne
-//    @JoinColumn(name= "GROUP_ID")
+    //    @NotNull
+//    @Column(name = "GROUP_ID")
+    @ManyToOne
+    @JoinColumn(name= "GROUP_ID")
     @NotNull
-    @Column(name = "GROUP_ID")
-    private String groupId;
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name="JOIN_PRODUCTS_CARTS",
-//            joinColumns = {@JoinColumn(name = "CART_ID",
-//                    referencedColumnName = "CART_ID")},
-//            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID",
-//                    referencedColumnName ="PRODUCT_ID")}
-//    )
-//    private List<Cart> cartList = new ArrayList<>();
+    private Group group;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="JOIN_CART_PROD",
+            joinColumns = {@JoinColumn(name = "PRODUCT_ID",
+                    referencedColumnName ="ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CART_ID",
+                    referencedColumnName = "CART_ID")}
+    )
+    private List<Cart> cartList = new ArrayList<>();
 
+//@ManyToMany(cascade = CascadeType.ALL, mappedBy = "productList")
 //    private List<Order> orderList = new ArrayList<>();
-
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "listOfProducts")
-    private List<Cart> listOfCarts = new ArrayList<>();
 }
