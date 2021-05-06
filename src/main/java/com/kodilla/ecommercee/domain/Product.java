@@ -32,7 +32,7 @@ public class Product {
     private Group group;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name="JOIN_PRODUCTS_CARTS",
+            name="JOIN_CART_PROD",
             joinColumns = {@JoinColumn(name = "PRODUCT_ID",
                     referencedColumnName ="ID")},
             inverseJoinColumns = {@JoinColumn(name = "CART_ID",
@@ -42,4 +42,7 @@ public class Product {
 
 //@ManyToMany(cascade = CascadeType.ALL, mappedBy = "productList")
 //    private List<Order> orderList = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "productList", cascade = CascadeType.ALL)
+    private List<Order> orderList = new ArrayList<>();
 }
