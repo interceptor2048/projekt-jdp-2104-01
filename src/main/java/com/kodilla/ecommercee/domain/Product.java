@@ -24,8 +24,7 @@ public class Product {
     @NotNull
     @Column(name= "PRICE")
     private Double price;
-    //    @NotNull
-//    @Column(name = "GROUP_ID")
+
     @ManyToOne
     @JoinColumn(name= "GROUP_ID")
     @NotNull
