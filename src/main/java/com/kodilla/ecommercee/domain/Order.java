@@ -25,7 +25,7 @@ public class Order {
     private User user;
 
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CART_ID", referencedColumnName = "cart_id")
     private Cart cart;
 

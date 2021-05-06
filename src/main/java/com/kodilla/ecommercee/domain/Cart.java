@@ -19,6 +19,6 @@ public class Cart {
     @Column(name = "order_date")
     private Date orderDate;
 
-    @OneToOne(mappedBy = "cart")
+    @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
     private Order order;
 }
