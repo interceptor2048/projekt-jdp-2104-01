@@ -33,4 +33,8 @@ public class Group {
     )
     private List<Product> products;
 
+    public Group(long id, @NotNull String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
