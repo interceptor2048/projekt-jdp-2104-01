@@ -40,6 +40,6 @@ public class Product {
 //    private List<Cart> cartList = new ArrayList<>();
 //
 
-    @ManyToMany(mappedBy = "productList")
+    @ManyToMany(mappedBy = "productList", cascade = CascadeType.ALL)
     private List<Order> orderList = new ArrayList<>();
 }
