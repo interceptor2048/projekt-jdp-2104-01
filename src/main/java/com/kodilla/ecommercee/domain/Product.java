@@ -42,4 +42,7 @@ public class Product {
 
 //@ManyToMany(cascade = CascadeType.ALL, mappedBy = "productList")
 //    private List<Order> orderList = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "productList", cascade = CascadeType.ALL)
+    private List<Order> orderList = new ArrayList<>();
 }
