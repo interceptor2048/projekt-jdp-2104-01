@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDto {
-     private Long productId;
+     private Long id;
      private String name;
      private String description;
-     private Long price;
+     private Double price;
      private String groupId;
 }
