@@ -4,18 +4,27 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
-@Entity(name = "carts")
+@Entity(name = "CARTS")
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_id")
+    @NotNull
+    @Column(name = "CART_ID")
     private Long cartId;
 
     @NotNull
-    @Column(name = "order_date")
+    @Column(name = "ORDER_DATE")
     private Date orderDate;
+
+    @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
+    private Order order;
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList")
+    private List<Product> listOfProducts  = new ArrayList<>();
 }

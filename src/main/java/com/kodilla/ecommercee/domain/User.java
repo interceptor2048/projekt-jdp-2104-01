@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class User {
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -41,5 +43,5 @@ public class User {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private List<Order> listOfOrders;
+    private List<Order> listOfOrders = new ArrayList<>();
 }

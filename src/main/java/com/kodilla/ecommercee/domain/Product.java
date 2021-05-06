@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,10 +29,10 @@ public class Product {
     @ManyToOne
     @JoinColumn(name= "GROUP_ID")
     @NotNull
-    private Group group;
+    private ProductsGroup productsGroup;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name="JOIN_PRODUCTS_CARTS",
+            name="JOIN_CART_PROD",
             joinColumns = {@JoinColumn(name = "PRODUCT_ID",
                     referencedColumnName ="ID")},
             inverseJoinColumns = {@JoinColumn(name = "CART_ID",
@@ -44,4 +43,6 @@ public class Product {
 //@ManyToMany(cascade = CascadeType.ALL, mappedBy = "productList")
 //    private List<Order> orderList = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "productList", cascade = CascadeType.ALL)
+    private List<Order> orderList = new ArrayList<>();
 }

@@ -1,7 +1,7 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.GroupRepository;
-import com.kodilla.ecommercee.domain.Group;
+import com.kodilla.ecommercee.domain.ProductsGroup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +14,15 @@ public class DbSeervice {
 
     private final GroupRepository groupRepository;
 
-    public List<Group> getAllGroups() {
+    public List<ProductsGroup> getAllGroups() {
         return groupRepository.findAll();
     }
 
-    public Group saveGroup(final Group group) {
-        return groupRepository.save(group);
+    public ProductsGroup saveGroup(final ProductsGroup productsGroup) {
+        return groupRepository.save(productsGroup);
     }
 
-    public Optional<Group> getGroup(final Long id) {
+    public Optional<ProductsGroup> getGroup(final Long id) {
         return groupRepository.findById(id);
     }
 }

@@ -23,16 +23,16 @@ public class GroupDaoTestSuite {
     @Test
     public void testSaveGroup(){
         //Given
-        Group group = makeGroup("TestGroup");
+        ProductsGroup group = makeGroup("TestGroup");
         List<Product> products = new ArrayList<>();
         Product product = makeProduct("test1","test2",12.1);
-        product.setGroup(group);
+        product.setProductsGroup(group);
         products.add(product);
         group.setProducts(products);
         long id = group.getId();
         //When
         groupDao.save(group);
-        List<Group> groupList = (List<Group>) groupDao.findAll();
+        List<ProductsGroup> groupList = (List<ProductsGroup>) groupDao.findAll();
         //Then
         assertEquals(1,groupList.size());
         //Clean up
@@ -43,8 +43,8 @@ public class GroupDaoTestSuite {
         }
     }
 
-    private Group makeGroup(String name){
-        Group group = new Group();
+    private ProductsGroup makeGroup(String name){
+        ProductsGroup group = new ProductsGroup();
         group.setName(name);
         return group;
     }
