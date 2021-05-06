@@ -6,7 +6,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "PRODUCTS_GROUPS")
 public class Group {
 
