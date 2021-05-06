@@ -25,4 +25,6 @@ public class DbSeervice {
     public Optional<Group> getGroup(final Long id) {
         return groupRepository.findById(id);
     }
+
+    public void donothing() {}
 }
