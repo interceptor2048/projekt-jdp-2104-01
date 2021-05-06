@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.time.LocalTime;
 import java.util.List;
 
 @Data
@@ -12,12 +13,35 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
     @NotNull
-    @Column(name = "USER_ID", unique = true)
-    private Long userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @NotNull
+    @Column(name = "USERNAME", unique = true)
+    private String username;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orderList = new ArrayList<>();
+    @NotNull
+    @Column(name = "STATUS")
+    private int status;
+
+    @NotNull
+    @Column(name = "USER_KEY", unique = true)
+    private String userKey;
+
+    @NotNull
+    @Column(name = "EXPIRATION_TIME")
+    private LocalTime expirationTime;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "CART_ID")
+    private Cart cart;
+
+    @OneToMany(
+            targetEntity = Order.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<Order> listOfOrders = new ArrayList<>();
 }

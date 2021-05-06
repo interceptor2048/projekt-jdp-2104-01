@@ -1,9 +1,10 @@
 package com.kodilla.ecommercee.dao;
 
 import com.kodilla.ecommercee.domain.Cart;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CartDao extends JpaRepository<Cart, Long> {
+public interface CartDao extends CrudRepository<Cart, Long> {
 }
+

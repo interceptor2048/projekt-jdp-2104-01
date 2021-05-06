@@ -16,13 +16,14 @@ public class Order {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "ORDER_ID", unique = true)
+    @Column(name = "ID", unique = true)
     private Long id;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
@@ -35,5 +36,4 @@ public class Order {
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
     )
     private List<Product> productList;
-
 }
