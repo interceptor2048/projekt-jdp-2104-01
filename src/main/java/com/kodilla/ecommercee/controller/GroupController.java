@@ -1,8 +1,9 @@
 package com.kodilla.ecommercee.controller;
 
-import com.kodilla.ecommercee.dao.GroupDao;
+import com.kodilla.ecommercee.dao.ProductsGroupDao;
 import com.kodilla.ecommercee.domain.GroupDto;
 import com.kodilla.ecommercee.domain.GroupNotFoundException;
+import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductsGroup;
 import com.kodilla.ecommercee.mapper.GroupMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,12 @@ import java.util.List;
 public class GroupController {
 
 
-    private final GroupDao service;
+    private final ProductsGroupDao service;
     private final GroupMapper groupMapper;
 
     @RequestMapping(method = RequestMethod.GET, value = "getGroups")
     public List<GroupDto> getGroups() {
-        List<ProductsGroup> groups = service.findAll();
+        List<ProductsGroup> groups = (List<ProductsGroup>) service.findAll();
         return groupMapper.mapToGroupDtoList(groups);
     }
 
