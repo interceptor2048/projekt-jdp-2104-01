@@ -1,9 +1,10 @@
 package com.kodilla.ecommercee.service;
 
-import com.kodilla.ecommercee.GroupRepository;
+
 import com.kodilla.ecommercee.UserRepository;
-import com.kodilla.ecommercee.controller.UserNotFoundException;
-import com.kodilla.ecommercee.domain.Group;
+
+import com.kodilla.ecommercee.dao.ProductsGroupDao;
+import com.kodilla.ecommercee.domain.ProductsGroup;
 import com.kodilla.ecommercee.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,20 +14,20 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class DbSeervice {
+public class DbService {
 
-    private final GroupRepository groupRepository;
+    private final ProductsGroupDao groupRepository;
     private final UserRepository userRepository;
 
-    public List<Group> getAllGroups() {
-        return groupRepository.findAll();
+    public List<ProductsGroup> getAllGroups() {
+        return (List<ProductsGroup>) groupRepository.findAll();
     }
 
-    public Group saveGroup(final Group group) {
+    public ProductsGroup saveGroup(final ProductsGroup group) {
         return groupRepository.save(group);
     }
 
-    public Optional<Group> getGroup(final Long id) {
+    public Optional<ProductsGroup> getGroup(final Long id) {
         return groupRepository.findById(id);
     }
 
