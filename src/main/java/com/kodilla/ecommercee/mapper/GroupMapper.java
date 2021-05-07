@@ -1,8 +1,7 @@
 package com.kodilla.ecommercee.mapper;
 
-import com.kodilla.ecommercee.domain.Group;
+import com.kodilla.ecommercee.domain.ProductsGroup;
 import com.kodilla.ecommercee.domain.GroupDto;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,22 +10,22 @@ import java.util.stream.Collectors;
 @Service
 public class GroupMapper {
 
-    public Group mapToGroup(final GroupDto groupDto) {
-        return new Group(
+    public ProductsGroup mapToGroup(final GroupDto groupDto) {
+        return new ProductsGroup(
                 groupDto.getId(),
                 groupDto.getName()
         );
     }
 
-    public GroupDto mapToGroupDto(final Group group) {
+    public GroupDto mapToGroupDto(final ProductsGroup productsGroup) {
         return new GroupDto(
-                group.getId(),
-                group.getName()
+                productsGroup.getId(),
+                productsGroup.getName()
         );
     }
 
-    public List<GroupDto> mapToGroupDtoList(final List<Group> groupList) {
-        return groupList.stream()
+    public List<GroupDto> mapToGroupDtoList(final List<ProductsGroup> productsGroupList) {
+        return productsGroupList.stream()
                 .map(this::mapToGroupDto)
                 .collect(Collectors.toList());
     }
