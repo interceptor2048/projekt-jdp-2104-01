@@ -29,4 +29,6 @@ public class DbService {
     public void deleteGroup(final Long groupId) {
         groupDao.deleteById(groupId);
     }
+
+    public void donothing() {}
 }
