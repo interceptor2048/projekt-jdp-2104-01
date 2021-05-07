@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +24,7 @@ public class Product {
     private String description;
     @NotNull
     @Column(name= "PRICE")
-    private Double price;
-    //    @NotNull
-//    @Column(name = "GROUP_ID")
+    private BigDecimal price;
     @ManyToOne
     @JoinColumn(name= "GROUP_ID")
     @NotNull
