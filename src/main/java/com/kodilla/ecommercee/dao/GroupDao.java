@@ -1,4 +1,4 @@
-package com.kodilla.ecommercee;
+package com.kodilla.ecommercee.dao;
 
 import com.kodilla.ecommercee.domain.Group;
 import org.springframework.data.repository.CrudRepository;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface GroupRepository extends CrudRepository<Group, Long> {
+public interface GroupDao extends CrudRepository<Group, Long> {
 
     @Override
     List<Group> findAll();
@@ -18,4 +18,7 @@ public interface GroupRepository extends CrudRepository<Group, Long> {
 
     @Override
     Optional<Group> findById(Long groupId);
+
+    @Override
+    void deleteById(Long groupId);
 }
