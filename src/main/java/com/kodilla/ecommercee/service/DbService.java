@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.service;
 
-import com.kodilla.ecommercee.GroupRepository;
+import com.kodilla.ecommercee.dao.GroupDao;
 import com.kodilla.ecommercee.domain.ProductsGroup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,21 +10,23 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class DbSeervice {
+public class DbService {
 
-    private final GroupRepository groupRepository;
+    private final GroupDao groupDao;
 
     public List<ProductsGroup> getAllGroups() {
-        return groupRepository.findAll();
+        return (List<ProductsGroup>) groupDao.findAll();
     }
 
-    public ProductsGroup saveGroup(final ProductsGroup productsGroup) {
-        return groupRepository.save(productsGroup);
+    public ProductsGroup saveGroup(final ProductsGroup group) {
+        return groupDao.save(group);
     }
 
     public Optional<ProductsGroup> getGroup(final Long id) {
-        return groupRepository.findById(id);
+        return groupDao.findById(id);
     }
 
-    public void donothing() {}
+    public void deleteGroup(final Long groupId) {
+        groupDao.deleteById(groupId);
+    }
 }
