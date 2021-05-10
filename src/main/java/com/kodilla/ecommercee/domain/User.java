@@ -1,19 +1,29 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.time.LocalTime;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
 @Entity(name = "USERS")
 public class User {
+    public User(Long id, @NotNull String username, @NotNull int status, @NotNull String userKey, LocalDateTime expirationTime) {
+        this.id = id;
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+        this.expirationTime = expirationTime;
+    }
+    public User() {}
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -29,13 +39,8 @@ public class User {
     @Column(name = "USER_KEY", unique = true)
     private String userKey;
 
-    @NotNull
     @Column(name = "EXPIRATION_TIME")
-    private LocalTime expirationTime;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "CART_ID")
-    private Cart cart;
+    private LocalDateTime expirationTime;
 
     @OneToMany(
             targetEntity = Order.class,
@@ -44,4 +49,8 @@ public class User {
             fetch = FetchType.LAZY
     )
     private List<Order> listOfOrders = new ArrayList<>();
+
+    public void setListOfOrders(List<Order> listOfOrders) {
+        this.listOfOrders = listOfOrders;
+    }
 }
