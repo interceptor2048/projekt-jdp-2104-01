@@ -10,25 +10,27 @@ import java.util.Date;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
+//@AllArgsConstructor
 public class UserDto {
     private Long id;
     private String username;
     private int status;
     private String userKey;
     private LocalDateTime expirationTime;
-    private List<Order> listOfOrders;
+    //private List<Order> listOfOrders;
 
-    public void setListOfOrders(List<Order> listOfOrders) {
-        this.listOfOrders = listOfOrders;
-    }
+    //public void setListOfOrders(List<Order> listOfOrders) {
+    //    this.listOfOrders = listOfOrders;
+    //}
 
-    public UserDto(Long id, String username, int status, String userKey, LocalDateTime expirationTime) {
+    //LocalDateTime expirationTime
+
+    public UserDto(Long id, String username, int status, String userKey) {
         this.id = id;
         this.username = username;
         this.status = status;
         this.userKey = userKey;
-        this.expirationTime = expirationTime;
+        //this.expirationTime = expirationTime;
     }
 
     public void setUserKey(String userKey) {
