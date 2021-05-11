@@ -14,6 +14,15 @@ import java.util.List;
 @Data
 @Entity(name = "PRODUCTS")
 public class Product {
+    public Product(@NotNull String name, @NotNull String description, @NotNull BigDecimal price, @NotNull ProductsGroup productsGroup, List<Cart> cartList, List<Order> orderList) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.productsGroup = productsGroup;
+        this.cartList = cartList;
+        this.orderList = orderList;
+    }
+
     @Id
     @GeneratedValue
     @NotNull
@@ -45,4 +54,5 @@ public class Product {
 
     @ManyToMany(mappedBy = "productList", cascade = CascadeType.ALL)
     private List<Order> orderList = new ArrayList<>();
+
 }

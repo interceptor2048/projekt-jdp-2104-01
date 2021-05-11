@@ -4,11 +4,12 @@ import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductsGroup;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,23 +18,29 @@ import java.util.Optional;
 
 import static org.junit.Assert.*;
 
-@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest()
 @DisplayName("ProductDao Test Suites")
 public class ProductDaoTests {
     @Autowired
     private ProductDao productDao;
+    @Autowired
+    private ProductsGroupDao productsGroupDao;
 
     @Test
-    void testFindAll() {
+    public void testFindAll() {
         //Given
-        ProductsGroup productsGroup = new ProductsGroup();
+        ProductsGroup productsGroup = new ProductsGroup("new one");
         List<Order> orderList = new ArrayList<>();
         List<Cart> cartList = new ArrayList<>();
-        Product product = new Product(1L, "name", "description",
+        Product product = new Product("name", "description",
                 new BigDecimal("100"), productsGroup, cartList, orderList);
         //When
+        productsGroupDao.save(productsGroup);
+        productDao.save(product);
         productDao.findAll();
         Long id = product.getId();
+        System.out.println(id);
         //Then
         assertNotEquals(java.util.Optional.of(0), id);
         //CleanUp
@@ -41,31 +48,35 @@ public class ProductDaoTests {
     }
 
     @Test
-    void testFindById() {
+    public void testFindById() {
         //Given
-        ProductsGroup productsGroup = new ProductsGroup();
+        ProductsGroup productsGroup = new ProductsGroup("new one");
         List<Order> orderList = new ArrayList<>();
         List<Cart> cartList = new ArrayList<>();
-        Product product = new Product(1L, "name", "description",
+        Product product = new Product("name", "description",
                 new BigDecimal("100"), productsGroup, cartList, orderList);
         //When
+        productsGroupDao.save(productsGroup);
         productDao.save(product);
-        //Then
         Long id = product.getId();
+
+        //Then
         Optional<Product> savedProduct = productDao.findById(product.getId());
         assertTrue(savedProduct.isPresent());
         //CleanUp
         productDao.deleteById(id);
     }
+
     @Test
-    void testSaveProduct(){
+    public void testSaveProduct() {
         //Given
-        ProductsGroup productsGroup = new ProductsGroup();
+        ProductsGroup productsGroup = new ProductsGroup("new one");
         List<Order> orderList = new ArrayList<>();
         List<Cart> cartList = new ArrayList<>();
-        Product product = new Product(1L, "name", "description",
+        Product product = new Product("name", "description",
                 new BigDecimal("100"), productsGroup, cartList, orderList);
         //When
+        productsGroupDao.save(productsGroup);
         productDao.save(product);
         Long id = product.getId();
         //Then
@@ -73,21 +84,25 @@ public class ProductDaoTests {
         //CleanUp
         productDao.deleteById(id);
     }
+
     @Test
-    void testFindByNameAndPrice(){
+    public void testFindByNameAndPrice() {
         //Given
-        ProductsGroup productsGroup = new ProductsGroup();
+        ProductsGroup productsGroup = new ProductsGroup("new one");
         List<Order> orderList = new ArrayList<>();
         List<Cart> cartList = new ArrayList<>();
-        Product product = new Product(1L, "name", "description",
+        Product product = new Product("name", "description",
                 new BigDecimal("100"), productsGroup, cartList, orderList);
         //When
+        productsGroupDao.save(productsGroup);
         productDao.save(product);
-        productDao.findByNameAndPrice(product.getName(), product.getPrice());
         Long id = product.getId();
+        Optional<Product> savedProduct = Optional.ofNullable(productDao.findByNameAndPrice(product.getName(), product.getPrice()));
+
         //Then
-        assertEquals("name", product.getName());
-        assertNotEquals(0, Optional.ofNullable(id));
+        assertTrue(savedProduct.isPresent());
+//        assertEquals("name", product.getName());
+//        assertNotEquals(0, Optional.ofNullable(id));
         //CleanUp
         productDao.deleteById(id);
     }
