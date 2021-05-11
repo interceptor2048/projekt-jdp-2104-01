@@ -117,13 +117,18 @@ public class ProductDaoTests {
                 new BigDecimal("100"), productsGroup1, cartList, orderList);
         Product product2 = new Product("name2", "description2",
                 new BigDecimal("200"), productsGroup1, cartList, orderList);
+        productsGroupDao.save(productsGroup1);
+        Long id = productsGroup1.getId();
+        productDao.save(product1);
+        Long product1Id = product1.getId();
+        productDao.save(product2);
+        Long product2Id = product2.getId();
         product1.setProductsGroup(productsGroup1);
         product2.setProductsGroup(productsGroup1);
         productsGroup1.getProducts().add(product1);
         productsGroup1.getProducts().add(product2);
         //When
-        productsGroupDao.save(productsGroup1);
-        Long id = productsGroup1.getId();
+
         //Then
         assertNotEquals(Optional.of(0), id);
         //CleanUp
