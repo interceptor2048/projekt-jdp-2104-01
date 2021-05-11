@@ -24,12 +24,6 @@ public class Order {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-
-    @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CART_ID", referencedColumnName = "cart_id")
-    private Cart cart;
-
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "JOIN_PRODUCT_ORDER",
             joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},

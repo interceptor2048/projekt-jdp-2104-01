@@ -22,9 +22,6 @@ public class Cart {
     @Column(name = "ORDER_DATE")
     private Date orderDate;
 
-    @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
-    private Order order;
-
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList")
     private List<Product> listOfProducts  = new ArrayList<>();
 }
