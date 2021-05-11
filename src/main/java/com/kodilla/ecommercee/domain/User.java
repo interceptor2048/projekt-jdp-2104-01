@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity(name = "USERS")
 public class User {
+
     public User(Long id, @NotNull String username, @NotNull int status, @NotNull String userKey, LocalDateTime expirationTime) {
         this.id = id;
         this.username = username;
