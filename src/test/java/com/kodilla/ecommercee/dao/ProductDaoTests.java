@@ -106,4 +106,27 @@ public class ProductDaoTests {
         //CleanUp
         productDao.deleteById(id);
     }
+
+    @Test
+    void testProductsGroupSaveWithProduct() {
+        //Given
+        ProductsGroup productsGroup1 = new ProductsGroup("number one");
+        List<Order> orderList = new ArrayList<>();
+        List<Cart> cartList = new ArrayList<>();
+        Product product1 = new Product("name1", "description1",
+                new BigDecimal("100"), productsGroup1, cartList, orderList);
+        Product product2 = new Product("name2", "description2",
+                new BigDecimal("200"), productsGroup1, cartList, orderList);
+        product1.setProductsGroup(productsGroup1);
+        product2.setProductsGroup(productsGroup1);
+        productsGroup1.getProducts().add(product1);
+        productsGroup1.getProducts().add(product2);
+        //When
+        productsGroupDao.save(productsGroup1);
+        Long id = productsGroup1.getId();
+        //Then
+        assertNotEquals(Optional.of(0), id);
+        //CleanUp
+        productsGroupDao.deleteById(id);
+    }
 }
