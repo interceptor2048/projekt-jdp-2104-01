@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.time.LocalTime;
 import java.util.List;
 
 @Data
@@ -45,13 +44,16 @@ public class User {
 
     @OneToMany(
             targetEntity = Order.class,
-            mappedBy = "user",
+            mappedBy = "orderUser",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     private List<Order> listOfOrders = new ArrayList<>();
 
-    public void setListOfOrders(List<Order> listOfOrders) {
-        this.listOfOrders = listOfOrders;
+    public User(String username, int status, String userKey, LocalDateTime expirationTime) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+        this.expirationTime = expirationTime;
     }
 }

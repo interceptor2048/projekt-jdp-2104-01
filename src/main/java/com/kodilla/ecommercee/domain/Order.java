@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,13 +21,8 @@ public class Order {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private User user;
-
-//    @NotNull
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")
-//    private Cart cart;
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    private User orderUser;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "JOIN_PRODUCT_ORDER",
@@ -37,15 +31,7 @@ public class Order {
     )
     private List<Product> productList;
 
-
-//    public Order(User user, Cart cart) {
-//        this.user = user;
-//        this.cart = cart;
-//        this.productList = new ArrayList<>();
-//    }
-
-
-    public Order(User user) {
-        this.user = user;
+    public Order(User orderUser) {
+        this.orderUser = orderUser;
     }
 }
