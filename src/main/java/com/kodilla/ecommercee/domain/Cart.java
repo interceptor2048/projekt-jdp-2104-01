@@ -13,6 +13,9 @@ import java.util.List;
 @Data
 @Entity(name = "CARTS")
 public class Cart {
+    public Cart(@NotNull LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
