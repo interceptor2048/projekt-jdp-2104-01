@@ -11,7 +11,6 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @Entity(name = "USERS")
 public class User {
     public User(Long id, @NotNull String username, @NotNull int status, @NotNull String userKey, LocalDateTime expirationTime) {
@@ -21,7 +20,18 @@ public class User {
         this.userKey = userKey;
         this.expirationTime = expirationTime;
     }
+
+    public User(Long id, String username, int status, String userKey, LocalDateTime expirationTime, List<Order> listOfOrders) {
+        this.id = id;
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+        this.expirationTime = expirationTime;
+        this.listOfOrders = listOfOrders;
+    }
+
     public User() {}
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +51,8 @@ public class User {
 
     @Column(name = "EXPIRATION_TIME")
     private LocalDateTime expirationTime;
+
+
 
     @OneToMany(
             targetEntity = Order.class,

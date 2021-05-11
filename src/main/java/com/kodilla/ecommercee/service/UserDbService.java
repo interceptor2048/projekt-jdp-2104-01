@@ -15,10 +15,10 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class DbService {
+public class UserDbService {
 
     private final ProductsGroupDao groupRepository;
-
+    private final UserDao userRepository;
 
     public List<ProductsGroup> getAllGroups() {
         return (List<ProductsGroup>) groupRepository.findAll();
@@ -30,6 +30,25 @@ public class DbService {
 
     public Optional<ProductsGroup> getGroup(final Long id) {
         return groupRepository.findById(id);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+    public User createUser(final User user) {
+        return userRepository.save(user);
+    }
+
+
+    public Optional<User> getUser(long id) {
+        return userRepository.findById(id);
+    }
+    public User saveUser(final User user) {
+        return userRepository.save(user);
+    }
+
+    public void delete(long id){
+        userRepository.deleteById(id);
     }
 
 }
