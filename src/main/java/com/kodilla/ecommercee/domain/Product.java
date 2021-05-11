@@ -26,7 +26,7 @@ public class Product {
     @Column(name= "PRICE")
     private BigDecimal price;
     @ManyToOne
-    @JoinColumn(name= "GROUP_ID")
+//    @JoinColumn(name= "GROUP_ID")
     @NotNull
     private ProductsGroup productsGroup;
     @ManyToMany(cascade = CascadeType.ALL)

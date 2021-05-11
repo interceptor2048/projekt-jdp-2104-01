@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import com.kodilla.ecommercee.dao.ProductDao;
 import com.kodilla.ecommercee.dao.ProductsGroupDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +11,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,18 +23,16 @@ public class GroupDaoTestSuite {
     @Autowired
     private ProductsGroupDao groupDao;
 
+    @Autowired
+    private ProductDao productDao;
+
     @Test
     public void testSaveGroup(){
         //Given
-        ProductsGroup group = makeGroup("TestGroup");
-        List<Product> products = new ArrayList<>();
-        Product product = makeProduct("test1","test2",BigDecimal.valueOf(12.1));
-        product.setProductsGroup(group);
-        products.add(product);
-        group.setProducts(products);
-        long id = group.getId();
+        ProductsGroup group = new ProductsGroup("TestGroup");
         //When
         groupDao.save(group);
+        long id = group.getId();
         List<ProductsGroup> groupList = (List<ProductsGroup>) groupDao.findAll();
         //Then
         assertEquals(1,groupList.size());
@@ -43,17 +44,47 @@ public class GroupDaoTestSuite {
         }
     }
 
-    private ProductsGroup makeGroup(String name){
-        ProductsGroup group = new ProductsGroup();
-        group.setName(name);
-        return group;
+    @Test
+    public void testFindById(){
+        //Given
+        ProductsGroup group = new ProductsGroup("TestGroup");
+        ProductsGroup group2 = new ProductsGroup("TestGroup");
+        //When
+        groupDao.save(group);
+        groupDao.save(group2);
+        long id = group.getId();
+        long id2 = group2.getId();
+        Optional<ProductsGroup> foundGroup = groupDao.findById(id);
+        //Then
+        assertTrue(foundGroup.isPresent());
+        //Clean up
+        try{
+            groupDao.deleteById(id);
+            groupDao.deleteById(id2);
+        } catch(Exception e){
+
+        }
     }
 
-    private Product makeProduct(String name, String description, BigDecimal price){
-        Product product = new Product();
-        product.setName(name);
-        product.setDescription(description);
-        product.setPrice(price);
-        return product;
+    @Test
+    public void testFindAll(){
+        //Given
+        ProductsGroup group = new ProductsGroup("TestGroup");
+        ProductsGroup group2 = new ProductsGroup("TestGroup");
+        //When
+        groupDao.save(group);
+        groupDao.save(group2);
+        long id = group.getId();
+        long id2 = group2.getId();
+        List<ProductsGroup> foundList = (List<ProductsGroup>) groupDao.findAll();
+        //Then
+        assertEquals(2,foundList.size());
+        //Clean-up
+        try{
+            groupDao.deleteById(id);
+            groupDao.deleteById(id2);
+        } catch(Exception e){
+
+        }
     }
 }
