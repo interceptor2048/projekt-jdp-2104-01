@@ -36,4 +36,9 @@ public class Order {
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
     )
     private List<Product> productList;
+
+    public Order(@NotNull User user, @NotNull Cart cart) {
+        this.user = user;
+        this.cart = cart;
+    }
 }

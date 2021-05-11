@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,6 +12,9 @@ import java.util.List;
 @Data
 @Entity(name = "CARTS")
 public class Cart {
+    public Cart(@NotNull Date orderDate) {
+        this.orderDate = orderDate;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
