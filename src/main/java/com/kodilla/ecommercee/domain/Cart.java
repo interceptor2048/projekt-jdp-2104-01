@@ -28,9 +28,6 @@ public class Cart {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    //@OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
-    //private Order order;
-
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList")
     private List<Product> listOfProducts  = new ArrayList<>();
 
