@@ -1,6 +1,8 @@
 package com.kodilla.ecommercee.domain;
 
 import com.kodilla.ecommercee.dao.OrderDao;
+import com.kodilla.ecommercee.dao.ProductDao;
+import com.kodilla.ecommercee.dao.ProductsGroupDao;
 import com.kodilla.ecommercee.dao.UserDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -22,6 +25,12 @@ public class OrderTest {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private ProductsGroupDao productsGroupDao;
+
+    @Autowired
+    private ProductDao productDao;
 
     @Test
     public void testCreate(){
@@ -89,6 +98,41 @@ public class OrderTest {
         Optional<Order> deletedOrder = orderDao.findById(orderId);
         //then
         assertFalse(deletedOrder.isPresent());
+    }
+
+    @Test
+    public void testUserOderRelationship(){
+        //given
+        User user = new User("userOrderRelationshipUser", 1,
+                "userOrderRelationshipUserKey", LocalDateTime.now());
+        userDao.save(user);
+        Order order = new Order(user);
+        orderDao.save(order);
+        //when&then
+        long userId = user.getId();
+        long orderUserId = order.getOrderUser().getId();
+        assertEquals(userId, orderUserId);
+    }
+
+    @Test
+    public void testProductOrderRelationship(){
+        User user = new User("productOrderRelationshipUser", 1,
+                "productOrderRelationshipUser", LocalDateTime.now());
+        userDao.save(user);
+        ProductsGroup group = new ProductsGroup("productOrderTestGroup");
+        productsGroupDao.save(group);
+        Product product = new Product("productOrderTestProduct", "description",
+                BigDecimal.valueOf(10), group);
+        //when
+        Order order = new Order(user);
+        order.setOrderUser(user);
+        order.getProductList().add(product);
+        orderDao.save(order);
+        //then
+        assertEquals(1, order.getProductList().size());
+
+        long productId = order.getProductList().get(0).getId();
+        assertNotEquals(0L, productId);
     }
 
 }
