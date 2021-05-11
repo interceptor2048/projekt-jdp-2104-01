@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +21,7 @@ public class Cart {
 
     @NotNull
     @Column(name = "ORDER_DATE")
-    private Date orderDate;
+    private LocalDateTime orderDate;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList")
     private List<Product> listOfProducts  = new ArrayList<>();
