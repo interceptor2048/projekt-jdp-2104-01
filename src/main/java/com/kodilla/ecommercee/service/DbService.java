@@ -14,22 +14,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class DbService {
+public class
+DbService {
 
-    private final ProductsGroupDao groupRepository;
+
     private final UserRepository userRepository;
 
-    public List<ProductsGroup> getAllGroups() {
-        return (List<ProductsGroup>) groupRepository.findAll();
-    }
 
-    public ProductsGroup saveGroup(final ProductsGroup group) {
-        return groupRepository.save(group);
-    }
-
-    public Optional<ProductsGroup> getGroup(final Long id) {
-        return groupRepository.findById(id);
-    }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
