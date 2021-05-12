@@ -7,13 +7,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.time.LocalTime;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @Entity(name = "USERS")
 public class User {
+
     public User(Long id, @NotNull String username, @NotNull int status, @NotNull String userKey, LocalDateTime expirationTime) {
         this.id = id;
         this.username = username;
@@ -50,7 +50,10 @@ public class User {
     )
     private List<Order> listOfOrders = new ArrayList<>();
 
-    public void setListOfOrders(List<Order> listOfOrders) {
-        this.listOfOrders = listOfOrders;
+    public User(String username, int status, String userKey, LocalDateTime expirationTime) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+        this.expirationTime = expirationTime;
     }
 }
