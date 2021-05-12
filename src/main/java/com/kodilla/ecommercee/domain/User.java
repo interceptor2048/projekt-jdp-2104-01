@@ -1,6 +1,5 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +22,9 @@ public class User {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+    @GeneratedValue
+    @Column(unique = true)
     private Long id;
 
     @NotNull
@@ -42,7 +43,8 @@ public class User {
     @Column(name = "EXPIRATION_TIME")
     private LocalDateTime expirationTime;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "CART_ID")
     private Cart cart;
 
     @OneToMany(

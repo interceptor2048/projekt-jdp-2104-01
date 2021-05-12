@@ -37,4 +37,8 @@ public class ProductsGroup {
         this.id = id;
         this.name = name;
     }
+
+    public ProductsGroup(@NotNull String name) {
+        this.name = name;
+    }
 }

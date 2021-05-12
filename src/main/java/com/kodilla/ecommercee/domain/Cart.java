@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -15,17 +14,12 @@ import java.util.List;
 public class Cart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    @Column(name = "CART_ID")
+    @GeneratedValue
+    @Column(name = "CART_ID", unique = true)
     private Long cartId;
 
-    //@NotNull
-   // @Column(name = "ORDER_DATE")
-    //private Date orderDate;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
+    @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
     private User user;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList")
