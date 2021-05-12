@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @Data
 @Entity(name = "CARTS")
 public class Cart {
-    public Cart(@NotNull Date orderDate) {
+    public Cart(@NotNull LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -24,7 +25,7 @@ public class Cart {
 
     @NotNull
     @Column(name = "ORDER_DATE")
-    private Date orderDate;
+    private LocalDateTime orderDate;
 
     @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
     private Order order;

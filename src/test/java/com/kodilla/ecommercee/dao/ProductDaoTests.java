@@ -117,6 +117,9 @@ public class ProductDaoTests {
                 new BigDecimal("100"), productsGroup1, cartList, orderList);
         Product product2 = new Product("name2", "description2",
                 new BigDecimal("200"), productsGroup1, cartList, orderList);
+        List<Product> products = new ArrayList<>();
+        products.add(product1);
+        products.add(product2);
         productsGroupDao.save(productsGroup1);
         Long id = productsGroup1.getId();
         productDao.save(product1);
@@ -127,9 +130,7 @@ public class ProductDaoTests {
         product2.setProductsGroup(productsGroup1);
         productsGroup1.getProducts().add(product1);
         productsGroup1.getProducts().add(product2);
-        //When
-
-        //Then
+        //When&Then
         assertNotEquals(Optional.of(0), id);
         //CleanUp
         productsGroupDao.deleteById(id);
@@ -141,9 +142,9 @@ public class ProductDaoTests {
         List<Order> orderList = new ArrayList<>();
 //        User user = new User("Anna",1,"123", LocalDateTime.of(2021,5,11,11,11));
 //        User user2 = new User("Adam",1,"345", LocalDateTime.of(2021,5,11,10,10));
-        Cart cart1 = new Cart(Date.valueOf(String.valueOf(2021-5-11)));
-        Cart cart2 = new Cart(Date.valueOf(String.valueOf(2021-7-23)));
-        Cart cart3 = new Cart(Date.valueOf(String.valueOf(2020-11-23)));
+        Cart cart1 = new Cart(LocalDateTime.of(2021,5,11,11,11));
+        Cart cart2 = new Cart(LocalDateTime.of(2020,7,27,21,51));
+        Cart cart3 = new Cart(LocalDateTime.of(2020,11,17,10,44));
         List<Cart> cartList = new ArrayList<>();
         cartList.add(cart1);
         cartList.add(cart2);
@@ -159,6 +160,8 @@ public class ProductDaoTests {
         cart3.getListOfProducts().add(product2);
 
         //When
+        productsGroupDao.save(productsGroup1);
+        Long id = productsGroup1.getId();
         productDao.save(product1);
         Long product1Id = product1.getId();
         productDao.save(product2);
