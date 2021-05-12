@@ -73,13 +73,13 @@ public class OrderTest {
         Order order = new Order(user, LocalDateTime.now());
         orderDao.save(order);
         long firstId = order.getId();
-        order.setOrderUser(newUser);
+        order.setUser(newUser);
         orderDao.save(order);
         long secondId = order.getId();
 
         //then
         assertEquals(firstId, secondId);
-        assertEquals("newUpdateUser", order.getOrderUser().getUsername());
+        assertEquals("newUpdateUser", order.getUser().getUsername());
     }
 
     @Test
@@ -107,7 +107,7 @@ public class OrderTest {
         orderDao.save(order);
         //when&then
         long userId = user.getId();
-        long orderUserId = order.getOrderUser().getId();
+        long orderUserId = order.getUser().getId();
         assertEquals(userId, orderUserId);
     }
 
@@ -122,7 +122,7 @@ public class OrderTest {
                 BigDecimal.valueOf(10), group);
         //when
         Order order = new Order(user, LocalDateTime.now());
-        order.setOrderUser(user);
+        order.setUser(user);
         order.getProductList().add(product);
         orderDao.save(order);
         //then

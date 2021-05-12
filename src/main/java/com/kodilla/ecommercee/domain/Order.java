@@ -2,11 +2,11 @@ package com.kodilla.ecommercee.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
 import java.util.List;
 
 @Data
@@ -24,7 +24,7 @@ public class Order {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
-    private User orderUser;
+    private User user;
 
     @NotNull
     @Column(name = "ORDER_DATE")
@@ -37,8 +37,8 @@ public class Order {
     )
     private List<Product> productList = new ArrayList<>();
 
-    public Order(User orderUser, LocalDateTime orderDate) {
-        this.orderUser = orderUser;
+    public Order(User user, LocalDateTime orderDate) {
+        this.user = user;
         this.orderDate = orderDate;
     }
 }
