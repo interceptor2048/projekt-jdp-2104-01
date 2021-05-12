@@ -29,9 +29,6 @@ public class OrderTest {
     @Autowired
     private ProductsGroupDao productsGroupDao;
 
-    @Autowired
-    private ProductDao productDao;
-
     @Test
     public void testCreate(){
         //given
@@ -63,7 +60,6 @@ public class OrderTest {
 
     }
 
-
     @Test
     public void testUpdate(){
         //given
@@ -83,6 +79,7 @@ public class OrderTest {
 
         //then
         assertEquals(firstId, secondId);
+        assertEquals("newUpdateUser", order.getOrderUser().getUsername());
     }
 
     @Test
