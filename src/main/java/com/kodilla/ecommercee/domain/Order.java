@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,10 @@ public class Order {
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User orderUser;
 
+    @NotNull
+    @Column(name = "ORDER_DATE")
+    private LocalDateTime orderDate;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "JOIN_PRODUCT_ORDER",
             joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
@@ -32,7 +37,8 @@ public class Order {
     )
     private List<Product> productList = new ArrayList<>();
 
-    public Order(User orderUser) {
+    public Order(User orderUser, LocalDateTime orderDate) {
         this.orderUser = orderUser;
+        this.orderDate = orderDate;
     }
 }

@@ -35,7 +35,7 @@ public class OrderTest {
         User user = new User("create", 1,
                 "createKey", LocalDateTime.now());
         userDao.save(user);
-        Order order = new Order(user);
+        Order order = new Order(user, LocalDateTime.now());
         //when
         orderDao.save(order);
         long orderId = order.getId();
@@ -49,7 +49,7 @@ public class OrderTest {
         User user = new User("readUser", 1,
                 "readKey", LocalDateTime.now());
         userDao.save(user);
-        Order orderToProcess = new Order(user);
+        Order orderToProcess = new Order(user, LocalDateTime.now());
         orderDao.save(orderToProcess);
         //when
         long orderId = orderToProcess.getId();
@@ -70,7 +70,7 @@ public class OrderTest {
                 "newUpdateKey", LocalDateTime.now());
         userDao.save(newUser);
         //when
-        Order order = new Order(user);
+        Order order = new Order(user, LocalDateTime.now());
         orderDao.save(order);
         long firstId = order.getId();
         order.setOrderUser(newUser);
@@ -87,7 +87,7 @@ public class OrderTest {
         User user = new User("deleteUser", 1,
                 "deleteKey", LocalDateTime.now());
         userDao.save(user);
-        Order order = new Order(user);
+        Order order = new Order(user, LocalDateTime.now());
         orderDao.save(order);
         long orderId = order.getId();
         //when
@@ -103,7 +103,7 @@ public class OrderTest {
         User user = new User("userOrderRelationshipUser", 1,
                 "userOrderRelationshipUserKey", LocalDateTime.now());
         userDao.save(user);
-        Order order = new Order(user);
+        Order order = new Order(user, LocalDateTime.now());
         orderDao.save(order);
         //when&then
         long userId = user.getId();
@@ -121,7 +121,7 @@ public class OrderTest {
         Product product = new Product("productOrderTestProduct", "description",
                 BigDecimal.valueOf(10), group);
         //when
-        Order order = new Order(user);
+        Order order = new Order(user, LocalDateTime.now());
         order.setOrderUser(user);
         order.getProductList().add(product);
         orderDao.save(order);
@@ -131,5 +131,4 @@ public class OrderTest {
         long productId = order.getProductList().get(0).getId();
         assertNotEquals(0L, productId);
     }
-
 }

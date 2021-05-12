@@ -21,14 +21,7 @@ public class Cart {
     @Column(name = "CART_ID")
     private Long cartId;
 
-    @NotNull
-    @Column(name = "ORDER_DATE")
-    private LocalDateTime orderDate;
-
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList")
     private List<Product> listOfProducts  = new ArrayList<>();
 
-    public Cart(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
-    }
 }
