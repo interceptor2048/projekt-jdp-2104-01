@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Cart {
     @GeneratedValue
     @Column(name = "CART_ID", unique = true)
     private Long cartId;
+
 
     @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
     private User user;
