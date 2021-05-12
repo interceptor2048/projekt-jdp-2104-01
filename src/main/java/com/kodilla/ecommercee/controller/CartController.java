@@ -27,7 +27,6 @@ public class CartController {
     public void createCart() {
         Cart cart = new Cart();
         service.save(cart);
-        System.out.println(cart.getCartId());
     }
 
     @GetMapping(value = "getCartProducts")
@@ -42,14 +41,19 @@ public class CartController {
         }
     }
 
-    @PostMapping(value = "addProducts")
-    public void addProducts(@RequestBody List<ProductDto> productDtos){
+    @PutMapping(value = "addProducts")
+    public void addProducts(@RequestParam Long cartId, @RequestBody List<ProductDto> productDtos){
+        List<Product> products = productMapper.mapToProductList(productDtos);
+        try {
+            service.addProducts(cartId, products);
+        } catch (CartNotFoundException e){
+
+        }
 
     }
 
     @DeleteMapping(value = "removeProduct")
-    public void removeProduct(@RequestParam Long
-                                      productId){
+    public void removeProduct(@RequestParam Long cartId, @RequestParam Long productId){
 
     }
 

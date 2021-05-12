@@ -16,13 +16,23 @@ public class CartDbService {
 
     private final CartDao cartDao;
 
-    public void save(Cart cart){
-        cartDao.save(cart);
+    public Cart save(Cart cart){
+        return cartDao.save(cart);
     }
 
-    public List<Product> getCartProducts(Long cartId) throws CartNotFoundException{
+    public List<Product> getCartProducts(Long cartId) throws CartNotFoundException {
         Optional<Cart> cart = getCart(cartId);
         return cart.map(Cart::getListOfProducts).orElseThrow(CartNotFoundException::new);
+    }
+
+    public Cart addProducts (Long cartId, List<Product> products) throws CartNotFoundException {
+        Optional<Cart> optCart = getCart(cartId);
+        if (optCart.isPresent()){
+            Cart cart = optCart.get();
+            cart.getListOfProducts().addAll(products);
+            return cartDao.save(cart);
+        }
+        throw new CartNotFoundException();
     }
 
     public Optional<Cart> getCart(Long cartId){
