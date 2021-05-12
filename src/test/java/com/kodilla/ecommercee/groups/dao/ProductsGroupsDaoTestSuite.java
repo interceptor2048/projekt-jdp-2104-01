@@ -31,6 +31,6 @@ public class ProductsGroupsDaoTestSuite {
         assertTrue(readProductsGroup.isPresent());
         System.out.println(productsGroup.getName());
         //CleanUp
-        productsGroupDao.deleteById((long) id);
+        //productsGroupDao.deleteById((long) id);
     }
 }
