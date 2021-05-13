@@ -41,8 +41,4 @@ public class ProductsGroup {
         this.id = id;
         this.name = name;
     }
-
-    public ProductsGroup(String name) {
-        this.name = name;
-    }
 }
