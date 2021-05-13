@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +23,6 @@ public class Cart {
     @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList", fetch = FetchType.LAZY)
     private List<Product> listOfProducts  = new ArrayList<>();
-
-    public Cart(User user) {
-        this.user = user;
-    }
 }
