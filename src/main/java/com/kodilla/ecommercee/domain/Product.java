@@ -42,7 +42,7 @@ public class Product {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name= "GROUP_ID")
+//    @JoinColumn(name= "GROUP_ID")
     @NotNull
     private ProductsGroup productsGroup;
     @ManyToMany(cascade = CascadeType.ALL)
@@ -66,3 +66,4 @@ public class Product {
         this.productsGroup = productsGroup;
     }
 }
+
