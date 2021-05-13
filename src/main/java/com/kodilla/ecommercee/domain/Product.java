@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 @Entity(name = "PRODUCTS")
 public class Product {
     public Product(@NotNull String name, @NotNull String description, @NotNull BigDecimal price, @NotNull ProductsGroup productsGroup, List<Cart> cartList, List<Order> orderList) {
@@ -28,15 +28,19 @@ public class Product {
     @NotNull
     @Column(name = "ID", unique = true)
     private Long id;
+
     @NotNull
     @Column(name= "NAME")
     private String name;
+
     @NotNull
     @Column(name= "DESCRIPTION")
     private String description;
+
     @NotNull
     @Column(name= "PRICE")
     private BigDecimal price;
+
     @ManyToOne
     @JoinColumn(name= "GROUP_ID")
     @NotNull
@@ -51,8 +55,14 @@ public class Product {
     )
     private List<Cart> cartList = new ArrayList<>();
 
-
     @ManyToMany(mappedBy = "productList", cascade = CascadeType.ALL)
     private List<Order> orderList = new ArrayList<>();
 
+    public Product(String name, String description, BigDecimal price,
+                   ProductsGroup productsGroup) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.productsGroup = productsGroup;
+    }
 }
