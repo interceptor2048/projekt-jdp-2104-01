@@ -42,6 +42,9 @@ public class CartEntityTestSuite {
 
         //then
         assertNotEquals(0, cartId);
+
+        //clean
+        cartDao.deleteById(cartId);
     }
 
     @Test
@@ -56,6 +59,9 @@ public class CartEntityTestSuite {
 
         //then
         assertTrue(cartFromDb.isPresent());
+
+        //clean
+        cartDao.deleteAll();
     }
 
     @Test
@@ -75,6 +81,10 @@ public class CartEntityTestSuite {
 
         //then
         assertEquals(1, cart.getListOfProducts().size());
+
+        //clean
+        productsGroupDao.deleteAll();
+        cartDao.deleteAll();
     }
 
     @Test
@@ -118,6 +128,11 @@ public class CartEntityTestSuite {
         //then
         assertEquals(1, listSize);
         assertTrue(userFromDb.isPresent());
+
+        //clean
+        productsGroupDao.deleteAll();
+        productDao.deleteAll();
+        userDao.deleteAll();
     }
 
     @Test
@@ -141,5 +156,10 @@ public class CartEntityTestSuite {
         assertNotEquals(0, cartId);
         assertEquals("test product3", productName);
         assertEquals(1, listSize);
+
+        //clean
+        productsGroupDao.deleteAll();
+        productDao.deleteAll();
+        cartDao.deleteAll();
     }
 }
