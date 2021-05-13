@@ -4,6 +4,7 @@ import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.exception.CartNotFoundException;
+import com.kodilla.ecommercee.exception.ProductNotFoundException;
 import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.CartDbService;
@@ -51,7 +52,7 @@ public class CartController {
 
     @DeleteMapping(value = "removeProduct")
     public void removeProduct(@RequestParam Long cartId, @RequestParam Long productId)
-            throws CartNotFoundException {
+            throws CartNotFoundException, ProductNotFoundException {
         service.removeProduct(cartId, productId);
     }
 
