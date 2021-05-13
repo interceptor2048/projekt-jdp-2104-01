@@ -48,7 +48,8 @@ public class Product {
     @ManyToMany(mappedBy = "productList", cascade = CascadeType.ALL)
     private List<Order> orderList = new ArrayList<>();
 
-    public Product(@NotNull String name, @NotNull String description, @NotNull BigDecimal price, @NotNull ProductsGroup productsGroup) {
+    public Product(String name, String description, BigDecimal price,
+                   ProductsGroup productsGroup) {
         this.name = name;
         this.description = description;
         this.price = price;

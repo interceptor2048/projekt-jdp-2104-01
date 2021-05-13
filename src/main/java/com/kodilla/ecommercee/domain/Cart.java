@@ -25,4 +25,5 @@ public class Cart {
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList", fetch = FetchType.LAZY)
     private List<Product> listOfProducts  = new ArrayList<>();
+
 }
