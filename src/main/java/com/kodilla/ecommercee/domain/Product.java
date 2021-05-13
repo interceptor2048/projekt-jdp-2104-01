@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,11 +9,20 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
+@AllArgsConstructor
 @Data
 @NoArgsConstructor
 @Entity(name = "PRODUCTS")
 public class Product {
+    public Product(@NotNull String name, @NotNull String description, @NotNull BigDecimal price, @NotNull ProductsGroup productsGroup, List<Cart> cartList, List<Order> orderList) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.productsGroup = productsGroup;
+        this.cartList = cartList;
+        this.orderList = orderList;
+    }
+
     @Id
     @GeneratedValue
     @NotNull

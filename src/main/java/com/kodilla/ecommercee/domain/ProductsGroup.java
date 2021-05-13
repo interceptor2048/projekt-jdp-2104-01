@@ -16,6 +16,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity(name = "PRODUCTS_GROUPS")
 public class ProductsGroup {
+    public ProductsGroup(@NotNull String name) {
+        this.name = name;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,10 +39,6 @@ public class ProductsGroup {
 
     public ProductsGroup(long id, @NotNull String name) {
         this.id = id;
-        this.name = name;
-    }
-
-    public ProductsGroup(String name) {
         this.name = name;
     }
 }

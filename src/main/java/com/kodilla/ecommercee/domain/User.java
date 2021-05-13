@@ -15,7 +15,6 @@ import java.util.List;
 public class User {
 
     public User (@NotNull String username, @NotNull int status, @NotNull String userKey) {
-
         this.username = username;
         this.status = status;
         this.userKey = userKey;
@@ -56,3 +55,4 @@ public class User {
     )
     private List<Order> listOfOrders = new ArrayList<>();
 }
+
