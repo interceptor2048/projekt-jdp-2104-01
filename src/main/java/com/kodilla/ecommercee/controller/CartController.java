@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -42,19 +43,16 @@ public class CartController {
     }
 
     @PutMapping(value = "addProducts")
-    public void addProducts(@RequestParam Long cartId, @RequestBody List<ProductDto> productDtos){
+    public void addProducts(@RequestParam Long cartId, @RequestBody List<ProductDto> productDtos)
+            throws CartNotFoundException {
         List<Product> products = productMapper.mapToProductList(productDtos);
-        try {
-            service.addProducts(cartId, products);
-        } catch (CartNotFoundException e){
-
-        }
-
+        service.addProducts(cartId, products);
     }
 
     @DeleteMapping(value = "removeProduct")
-    public void removeProduct(@RequestParam Long cartId, @RequestParam Long productId){
-
+    public void removeProduct(@RequestParam Long cartId, @RequestParam Long productId)
+            throws CartNotFoundException {
+        service.removeProduct(cartId, productId);
     }
 
     @PostMapping(value = "closeCart")
