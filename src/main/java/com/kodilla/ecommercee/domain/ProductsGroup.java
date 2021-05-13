@@ -40,7 +40,7 @@ public class ProductsGroup {
         this.name = name;
     }
 
-    public ProductsGroup(String name) {
+    public ProductsGroup(String name){
         this.name = name;
     }
 }

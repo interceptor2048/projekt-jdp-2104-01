@@ -14,6 +14,14 @@ import java.util.List;
 @Entity(name = "USERS")
 public class User {
 
+    public User(@NotNull String username, @NotNull int status, @NotNull String userKey, LocalDateTime expirationTime) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+        this.expirationTime = expirationTime;
+    }
+
+
     public User(Long id, @NotNull String username, @NotNull int status, @NotNull String userKey, LocalDateTime expirationTime) {
         this.id = id;
         this.username = username;
@@ -50,10 +58,4 @@ public class User {
     )
     private List<Order> listOfOrders = new ArrayList<>();
 
-    public User(String username, int status, String userKey, LocalDateTime expirationTime) {
-        this.username = username;
-        this.status = status;
-        this.userKey = userKey;
-        this.expirationTime = expirationTime;
     }
-}
