@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GroupDaoTestSuite {
+public class ProductsGroupDaoTestSuite {
 
     @Autowired
     private ProductsGroupDao groupDao;
