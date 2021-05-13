@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -26,6 +27,10 @@ public class Order {
 
 
     @NotNull
+    @Column(name = "ORDER_DATE")
+    private LocalDateTime orderDate;
+
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CART_ID", referencedColumnName = "cart_id")
     private Cart cart;
@@ -40,5 +45,9 @@ public class Order {
     public Order(@NotNull User user, @NotNull Cart cart) {
         this.user = user;
         this.cart = cart;
+    }
+
+    public Order(@NotNull LocalDateTime orderDate) {
+        this.orderDate = orderDate;
     }
 }
