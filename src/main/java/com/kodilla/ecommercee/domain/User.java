@@ -37,50 +37,36 @@ public class User {
     }
 
     public User() {}
-    private Long id;
-    private String username;
-    private int status;
-    private String userKey;
-    private LocalDateTime expirationTime;
-    private List<Order> listOfOrders = new ArrayList<>();
-    private Cart cart;
+
+
+
+
+
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
-    }
+    private Long id;
     @NotNull
     @Column(name = "USERNAME", unique = true)
-    public String getUsername() {
-        return username;
-    }
+    private String username;
 
     @NotNull
     @Column(name = "STATUS")
-    public int getStatus() {
-        return status;
-    }
+    private int status;
 
     @NotNull
     @Column(name = "USER_KEY", unique = true)
-    public String getUserKey() {
-        return userKey;
-    }
+    private String userKey;
 
     @Column(name = "EXPIRATION_TIME")
-    public LocalDateTime getExpirationTime() {
-        return expirationTime;
-    }
+    private LocalDateTime expirationTime;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "CART_ID")
-    public Cart getCart() {
-        return cart;
-    }
+    private Cart cart;
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
 
     @OneToMany(
             targetEntity = Order.class,
@@ -88,33 +74,9 @@ public class User {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    public List<Order> getListOfOrders() {
-        return listOfOrders;
-    }
+    private List<Order> listOfOrders = new ArrayList<>();
 
-    private void setId(Long id) {
-        this.id = id;
-    }
 
-    private void setUsername(String username) {
-        this.username = username;
-    }
-
-    private void setStatus(int status) {
-        this.status = status;
-    }
-
-    private void setUserKey(String userKey) {
-        this.userKey = userKey;
-    }
-
-    private void setExpirationTime(LocalDateTime expirationTime) {
-        this.expirationTime = expirationTime;
-    }
-
-    private void setListOfOrders(List<Order> listOfOrders) {
-        this.listOfOrders = listOfOrders;
-    }
 }
 /*@Data
 @Entity(name = "USERS")

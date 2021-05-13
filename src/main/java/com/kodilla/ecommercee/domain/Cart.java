@@ -18,6 +18,9 @@ public class Cart {
     @Column(name = "CART_ID")
     private Long cartId;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID")
+    private User user;
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList")
     private List<Product> listOfProducts  = new ArrayList<>();
 }
