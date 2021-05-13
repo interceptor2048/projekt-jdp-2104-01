@@ -28,6 +28,10 @@ public class ProductDaoTests {
     private ProductsGroupDao productsGroupDao;
     @Autowired
     private CartDao cartDao;
+    @Autowired
+    private OrderDao orderDao;
+    @Autowired
+    private UserDao userDao;
 
     @Test
     public void testFindAll() {
@@ -143,15 +147,9 @@ public class ProductDaoTests {
         //Given
         ProductsGroup productsGroup1 = new ProductsGroup("number one");
         List<Order> orderList = new ArrayList<>();
-        Order order1 = new Order(LocalDateTime.of(2021, 5, 11, 11, 11));
-        Order order2 = new Order(LocalDateTime.of(2020, 7, 27, 21, 51));
-        Order order3 = new Order(LocalDateTime.of(2020, 11, 17, 10, 44));
-        orderList.add(order1);
-        orderList.add(order2);
-        orderList.add(order3);
-        Cart cart1 = new Cart(1L,order1);
-        Cart cart2 = new Cart(2L,order2);
-        Cart cart3 = new Cart(3L,order3);
+        Cart cart1 = new Cart();
+        Cart cart2 = new Cart();
+        Cart cart3 = new Cart();
         List<Cart> cartList = new ArrayList<>();
         cartList.add(cart1);
         cartList.add(cart2);
@@ -167,13 +165,13 @@ public class ProductDaoTests {
         cart2.setListOfProducts(productList);
         cart3.setListOfProducts(productList);
         productsGroup1.setProducts(productList);
+        productsGroupDao.save(productsGroup1);
         cartDao.save(cart1);
         Long cartId1 = cart1.getCartId();
         cartDao.save(cart2);
         Long cartId2 = cart2.getCartId();
         cartDao.save(cart3);
         Long cartId3 = cart3.getCartId();
-        productsGroupDao.save(productsGroup1);
         Long id = productsGroup1.getId();
         product1.getCartList().add(cart1);
         product1.getCartList().add(cart2);
@@ -197,8 +195,52 @@ public class ProductDaoTests {
     @Test
     public void testSaveManyToManyOnOrderList() {
         //Given
+        ProductsGroup productsGroup1 = new ProductsGroup("number one");
+        List<Order> orderList = new ArrayList<>();
+        List<Cart> cartList = new ArrayList<>();
+        User user = new User("Name",1, "123", LocalDateTime.of(2021,5,11,11,11));
+        userDao.save(user);
+        Order order1 = new Order(user, LocalDateTime.of(2021, 5, 11, 11, 11));
+        Order order2 = new Order(user, LocalDateTime.of(2020, 7, 27, 21, 51));
+        Order order3 = new Order(user, LocalDateTime.of(2020, 11, 17, 10, 44));
+        orderList.add(order1);
+        orderList.add(order2);
+        orderList.add(order3);
+           Product product1 = new Product("name1", "description1",
+                new BigDecimal("100"), productsGroup1, cartList, orderList);
+        Product product2 = new Product("name2", "description2",
+                new BigDecimal("200"), productsGroup1, cartList, orderList);
+        List<Product> productList = new ArrayList<>();
+        productList.add(product1);
+        productList.add(product2);
+        order1.setProductList(productList);
+        order2.setProductList(productList);
+        order3.setProductList(productList);
+        productsGroup1.setProducts(productList);
+        productsGroupDao.save(productsGroup1);
+        orderDao.save(order1);
+        Long orderId1 = order1.getId();
+        orderDao.save(order2);
+        Long orderId2 = order2.getId();
+        orderDao.save(order3);
+        Long orderId3 = order3.getId();
+        product1.getOrderList().add(order1);
+        product1.getOrderList().add(order2);
+        product2.getOrderList().add(order3);
+        order1.getProductList().add(product1);
+        order2.getProductList().add(product1);
+        order3.getProductList().add(product2);
+
         //When
+        productDao.save(product1);
+        long product1Id = product1.getId();
+        productDao.save(product2);
+        long product2Id = product2.getId();
         //Then
+        assertNotEquals(0, product1Id);
+        assertNotEquals(0, product2Id);
         //CleanUp
+        productDao.deleteById(product1Id);
+        productDao.deleteById(product2Id);
     }
 }
