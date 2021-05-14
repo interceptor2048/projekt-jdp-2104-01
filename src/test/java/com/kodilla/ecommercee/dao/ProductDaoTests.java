@@ -108,11 +108,10 @@ public class ProductDaoTests {
         productDao.save(product);
         productDao.findByNameAndPrice(product.getName(), product.getPrice());
         Long id = product.getId();
-//        List<Product> savedProduct =
 
         //Then
-//        assertEquals("name", savedProduct.equals("name"));
         assertNotEquals(0, Optional.ofNullable(id));
+
         //CleanUp
         productDao.deleteById(id);
         Long prodGroupId = productsGroup.getId();
