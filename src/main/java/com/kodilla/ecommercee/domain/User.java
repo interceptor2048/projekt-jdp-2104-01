@@ -22,7 +22,6 @@ public class User {
     }
 
     @Id
-    @NotNull
     @GeneratedValue
     @Column(unique = true)
     private Long id;
