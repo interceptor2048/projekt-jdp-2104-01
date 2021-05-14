@@ -18,9 +18,6 @@ public interface ProductDao extends CrudRepository<Product, Long> {
     @Override
     Optional<Product> findById(Long productId);
 
-    @Override
-    Product save(Product product);
-
     List<Product> findByNameAndPrice(String name, BigDecimal price);
 
     @Override
