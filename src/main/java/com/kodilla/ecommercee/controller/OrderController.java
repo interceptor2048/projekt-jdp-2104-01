@@ -7,6 +7,7 @@ import com.kodilla.ecommercee.domain.OrderDto;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -28,24 +29,28 @@ public class OrderController {
         return returnList;
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "createOrder")
+    @RequestMapping(method = RequestMethod.POST,value = "createOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createOrder(@RequestBody OrderDto orderDto){
-        return;
+        Order order = mapper.mapToOrder(orderDto);
+        service.save(order);
     }
 
     @RequestMapping(method = RequestMethod.GET,value = "getOrder")
-    public OrderDto getOrder(@RequestParam Long orderId){
-        return new OrderDto(1,new User(), LocalDateTime.now());
+    public OrderDto getOrder(@RequestParam Long orderId) throws UserNotFoundException {
+        return mapper.mapToOrderDto(service.findById(orderId)
+                .orElseThrow(UserNotFoundException::new));
     }
 
     @RequestMapping(method = RequestMethod.PUT,value = "updateOrder")
     public OrderDto updateOrder(@RequestBody OrderDto orderDto){
-        return new OrderDto(2,new User(),LocalDateTime.now());
+        Order order = mapper.mapToOrder(orderDto);
+        Order savedOrder = service.save(order);
+        return mapper.mapToOrderDto(savedOrder);
     }
 
     @RequestMapping(method = RequestMethod.DELETE,value = "deleteOrder")
     public void deleteOrder(@RequestParam Long orderId){
-        return;
+        service.deleteById(orderId);
     }
 
 }
