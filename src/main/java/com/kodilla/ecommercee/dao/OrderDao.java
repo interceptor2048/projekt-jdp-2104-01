@@ -11,9 +11,6 @@ import java.util.Optional;
 public interface OrderDao extends CrudRepository<Order, Long> {
 
     @Override
-    Order save(Order order);
-
-    @Override
     List<Order> findAll();
 
     @Override

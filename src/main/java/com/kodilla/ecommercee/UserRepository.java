@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Long> {
     @Override
     List<User> findAll();
-    @Override
-    User save(User user);
+    //@Override
+   // User save(User user);
     Optional<User> findById(long id);
 }
