@@ -36,7 +36,7 @@ public class OrderTest {
     public void testCreate(){
         //given
         User user = new User("create", 1,
-                "createKey");
+                "createKey", LocalDateTime.now());
         userDao.save(user);
         Order order = new Order(user, LocalDateTime.now());
         //when
@@ -53,7 +53,7 @@ public class OrderTest {
     public void testRead(){
         //given
         User user = new User("readUser", 1,
-                "readKey");
+                "readKey", LocalDateTime.now());
         userDao.save(user);
         Order orderToProcess = new Order(user, LocalDateTime.now());
         orderDao.save(orderToProcess);
@@ -75,10 +75,10 @@ public class OrderTest {
     public void testUpdate(){
         //given
         User user = new User("updateUser", 1,
-                "updateKey");
+                "updateKey", LocalDateTime.now());
         userDao.save(user);
         User newUser = new User("newUpdateUser", 1,
-                "newUpdateKey");
+                "newUpdateKey", LocalDateTime.now());
         userDao.save(newUser);
         //when
         Order order = new Order(user, LocalDateTime.now());
@@ -103,7 +103,7 @@ public class OrderTest {
     @Test
     public void testDelete(){
         User user = new User("deleteUser", 1,
-                "deleteKey");
+                "deleteKey", LocalDateTime.now());
         userDao.save(user);
         Order order = new Order(user, LocalDateTime.now());
         orderDao.save(order);
@@ -123,7 +123,7 @@ public class OrderTest {
     public void testUserOderRelationship(){
         //given
         User user = new User("userOrderRelationshipUser", 1,
-                "userOrderRelationshipUserKey");
+                "userOrderRelationshipUserKey", LocalDateTime.now());
         userDao.save(user);
         Order order = new Order(user, LocalDateTime.now());
         orderDao.save(order);
@@ -141,7 +141,7 @@ public class OrderTest {
     @Test
     public void testProductOrderRelationship(){
         User user = new User("productOrderRelationshipUser", 1,
-                "productOrderRelationshipUser");
+                "productOrderRelationshipUser", LocalDateTime.now());
         userDao.save(user);
         ProductsGroup group = new ProductsGroup("productOrderTestGroup");
         productsGroupDao.save(group);

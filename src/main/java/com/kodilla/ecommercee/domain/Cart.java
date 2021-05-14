@@ -17,13 +17,13 @@ public class Cart {
     }
 
     @Id
-    @NotNull
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CART_ID", unique = true)
     private Long cartId;
 
 
-    @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @ManyToMany(mappedBy = "cartList", fetch = FetchType.LAZY)

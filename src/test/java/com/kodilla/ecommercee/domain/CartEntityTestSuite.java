@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -108,35 +109,31 @@ public class CartEntityTestSuite {
     @Test
     public void testRelationWithUser() {
         //given
-        Cart cart = new Cart();
-        cartDao.save(cart);
-        User user = new User("username3", 1, "hgdasa");
+        User user = new User("username3", 1, "hgdasa", LocalDateTime.now());
+        Cart cart = new Cart(user);
         user.setCart(cart);
-        userDao.save(user);
-        cart.setUser(user);
-        cartDao.save(cart);
         ProductsGroup newGroup = new ProductsGroup("test group2");
-        productsGroupDao.save(newGroup);
+        User zapisany = userDao.save(user);
+        ProductsGroup productGroupsZapisany = productsGroupDao.save(newGroup);
         Product testProduct = new Product("test product2", "test description2", new BigDecimal(300), newGroup);
-        productDao.save(testProduct);
+        Product productZapisany = productDao.save(testProduct);
 
         //when
-        user.getCart().getListOfProducts().add(testProduct);
-        userDao.save(user);
+        zapisany.getCart().getListOfProducts().add(testProduct);
+
         int listSize = cart.getListOfProducts().size();
 
         //then
         assertEquals(1, listSize);
 
         //clean
-        Long cartId = cart.getCartId();
-        Long userId = user.getId();
-        Long productId = testProduct.getId();
-        Long prodGroupId = newGroup.getId();
+        Long cartId = zapisany.getCart().getCartId();
+        Long userId = zapisany.getId();
+        Long productId = productZapisany.getId();
+        Long prodGroupId = productGroupsZapisany.getId();
         productDao.deleteById(productId);
         productsGroupDao.deleteById(prodGroupId);
         userDao.deleteById(userId);
-        cartDao.deleteById(cartId);
     }
 
     @Test

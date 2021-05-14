@@ -1,15 +1,10 @@
 package com.kodilla.ecommercee.controller;
-
-
-import com.kodilla.ecommercee.dao.CartDao;
-import com.kodilla.ecommercee.dao.UserDao;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.UserDto;
 import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.UserDbService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,28 +17,9 @@ import java.util.List;
 public class UserController {
     private final UserMapper userMapper;
     private final UserDbService service;
-    //@Autowired
-    private UserDbService userDao;
-    //@Autowired
-    private CartDao cartDao;
+
     @RequestMapping(method = RequestMethod.GET, value = "getUsers")
     public List<UserDto> getUsers() {
-
-
-        User user = new User("Wojtek cart", 1, "cart test", LocalDateTime.now());
-        Cart cart = new Cart(user);
-
-        user.setCart(cart);
-        service.saveUser(user);
-        //System.out.println(cart.getCartId());
-        //user.setCart(cart);
-        //service.saveUser(user);
-        //UserDto nowy = updateUser(userMapper.mapToUserDto(user));
-
-        //
-        //userDao.saveUser(user);
-        //cart.setUser(user);
-        //cartDao.save(cart);
         List<User> users = service.getAllUsers();
         return userMapper.mapToUserDtoList(users);
     }
@@ -79,6 +55,8 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createUser(@RequestBody UserDto userDto) {
         User user = userMapper.mapToUser(userDto);
+        Cart cart = new Cart(user);
+        user.setCart(cart);
         service.createUser(user);
     }
 }

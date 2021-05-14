@@ -210,7 +210,7 @@ public class ProductDaoTests {
         productsGroupDao.save(productsGroup1);
         List<Order> orderList = new ArrayList<>();
         List<Cart> cartList = new ArrayList<>();
-        User user = new User("Name",1, "123");
+        User user = new User("Name",1, "123",LocalDateTime.now());
         userDao.save(user);
         Order order1 = new Order(user, LocalDateTime.of(2021, 5, 11, 11, 11));
         Order order2 = new Order(user, LocalDateTime.of(2020, 7, 27, 21, 51));

@@ -38,7 +38,6 @@ public class User {
     }
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
     private Long id;
@@ -58,7 +57,7 @@ public class User {
     @Column(name = "EXPIRATION_TIME")
     private LocalDateTime expirationTime;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "CART_ID")
     private Cart cart;
 

@@ -1,7 +1,7 @@
 package com.kodilla.ecommercee.service;
 
 
-import com.kodilla.ecommercee.UserRepository;
+
 
 import com.kodilla.ecommercee.dao.ProductDao;
 import com.kodilla.ecommercee.dao.ProductsGroupDao;
@@ -21,7 +21,7 @@ public class
 DbService {
 
 
-    private final UserRepository userRepository;
+
     private final ProductDao productRepository;
     public List<Product> getAllProducts(){
         return  productRepository.findAll();
@@ -40,24 +40,5 @@ DbService {
     }
 
 
-
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-    public User createUser(final User user) {
-        return userRepository.save(user);
-    }
-
-
-    public Optional<User> getUser(long id) {
-        return userRepository.findById(id);
-    }
-    public User saveUser(final User user) {
-        return userRepository.save(user);
-    }
-
-    public void delete(long id){
-        userRepository.deleteById(id);
-    }
 
 }

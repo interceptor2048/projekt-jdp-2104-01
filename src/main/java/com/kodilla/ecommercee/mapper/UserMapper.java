@@ -18,12 +18,11 @@ public class UserMapper {
 
     public User mapToUser(UserDto userDto){
         return new User(
-                //userDto.getId(),
                 userDto.getUsername(),
                 userDto.getStatus(),
-                userDto.getUserKey());
-               // userDto.getExpirationTime(),
-               // userDto.getListOfOrders());
+                userDto.getUserKey(),
+                userDto.getExpirationTime());
+
     }
 
     public UserDto mapToUserDto(User user){
@@ -32,7 +31,5 @@ public class UserMapper {
                 user.getUsername(),
                 user.getStatus(),
                 user.getUserKey());
-             //   user.getExpirationTime(),
-             //   user.getListOfOrders());
     }
 }

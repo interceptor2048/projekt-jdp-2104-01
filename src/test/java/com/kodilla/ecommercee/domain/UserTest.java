@@ -11,13 +11,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest()
 public class UserTest {
-    @Autowired
-    private CartDao cartDao;
 
     @Autowired
     private UserDao userDao;
@@ -25,25 +23,45 @@ public class UserTest {
     public void testCreate(){
         //given
         User user = new User("Wojtek", 1, "random", LocalDateTime.now());
-        Cart cart = new Cart();
-        userDao.save(user);
-        cart.setUser(user);
-        cartDao.save(cart);
-        //user.setCart(cart);
-        //cart.setUser(user);
-        //cartDao.save(cart);
-        //System.out.println(cart.getCartId());
-        System.out.println(user.getUserKey());
-        System.out.println(cart.getUser().getUsername());
-        System.out.println(user.getCart().getCartId());
+        Cart cart = new Cart(user);
+        user.setCart(cart);
 
-        //System.out.println(user.getCart().getCartId());
-        //Order order = new Order(user, LocalDateTime.now());
         //when
-        //orderDao.save(order);
-        //long orderId = order.getId();
+        User testowy = userDao.save(user);
 
         //then
-        //assertNotEquals(0L, orderId);
+        assertNotNull(testowy);
+        userDao.delete(testowy);
     }
+
+    @Test
+    public void testIfUserHasCart(){
+        //given
+        User user = new User("Wojtek", 1, "random", LocalDateTime.now());
+        Cart cart = new Cart(user);
+        user.setCart(cart);
+
+        //when
+        User testowy = userDao.save(user);
+
+        //then
+        assertNotNull(testowy.getCart());
+        userDao.delete(testowy);
+    }
+
+    @Test
+    public void testIfUserIdOk(){
+        //given
+        User user = new User("Wojtek", 1, "random", LocalDateTime.now());
+        Cart cart = new Cart(user);
+        user.setCart(cart);
+
+        //when
+        User testowy = userDao.save(user);
+
+        //then
+        assertEquals(testowy.getCart().getUser(), testowy);
+        userDao.delete(testowy);
+    }
+
 }
