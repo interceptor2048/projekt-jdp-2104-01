@@ -5,6 +5,7 @@ import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.exception.CartNotFoundException;
 import com.kodilla.ecommercee.exception.ProductNotFoundException;
+import com.kodilla.ecommercee.exception.UserNotFoundException;
 import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.CartDbService;
@@ -26,9 +27,10 @@ public class CartController {
     private final ProductMapper productMapper;
 
     @PostMapping(value = "createCart")
-    public void createCart() {
-        Cart cart = new Cart();
-        service.save(cart);
+    public Cart createCart(@RequestParam Long userId) throws UserNotFoundException {
+        //dodać klucz -> sprawdzić czy klucz jest poprawny i aktywny
+        //sprawdzić czy użytkownik nie ma już koszyka
+        return service.createCart(userId);
     }
 
     @GetMapping(value = "getCartProducts")

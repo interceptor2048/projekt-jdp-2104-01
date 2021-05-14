@@ -30,4 +30,9 @@ public class Order {
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
     )
     private List<Product> productList;
+
+    public Order(User user, List<Product> productList) {
+        this.user = user;
+        this.productList = productList;
+    }
 }

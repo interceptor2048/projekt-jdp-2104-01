@@ -20,10 +20,17 @@ public class Cart {
     @Column(name = "CART_ID")
     private Long cartId;
 
+    @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
+    private User user;
+
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList")
     private List<Product> listOfProducts  = new ArrayList<>();
 
     public Cart(List<Product> listOfProducts) {
         this.listOfProducts = listOfProducts;
+    }
+
+    public Cart(User user) {
+        this.user = user;
     }
 }

@@ -21,8 +21,10 @@ public class CartMapper {
                         .collect(Collectors.toList()));
     }
 
+    //dodać np klucz użytkownika, dodać drugi parametr TODO
     public Cart mapToCart(CartDto cartDto){
         return new Cart(cartDto.getCartId(),
+                null,
                 cartDto.getListOfProducts().stream()
                     .map(productMapper::mapToProduct)
                     .collect(Collectors.toList()));
