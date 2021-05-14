@@ -43,14 +43,13 @@ public class User {
     @Column(name = "EXPIRATION_TIME")
     private LocalDateTime expirationTime;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CART_ID")
     private Cart cart;
 
     @OneToMany(
             targetEntity = Order.class,
             mappedBy = "user",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     private List<Order> listOfOrders = new ArrayList<>();

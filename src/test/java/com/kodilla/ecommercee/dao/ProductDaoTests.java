@@ -9,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +48,9 @@ public class ProductDaoTests {
         //Then
         assertNotEquals(java.util.Optional.of(0), id);
         //CleanUp
+        Long prodGroupId = productsGroup.getId();
         productDao.deleteById(id);
+        productsGroupDao.deleteById(prodGroupId);
     }
 
     @Test
@@ -70,7 +70,9 @@ public class ProductDaoTests {
         Optional<Product> savedProduct = productDao.findById(product.getId());
         assertTrue(savedProduct.isPresent());
         //CleanUp
+        Long prodGroupId = productsGroup.getId();
         productDao.deleteById(id);
+        productsGroupDao.deleteById(prodGroupId);
     }
 
     @Test
@@ -89,6 +91,8 @@ public class ProductDaoTests {
         assertNotEquals(Optional.of(0), id);
         //CleanUp
         productDao.deleteById(id);
+        Long prodGroupId = productsGroup.getId();
+        productsGroupDao.deleteById(prodGroupId);
     }
 
     @Test
@@ -111,6 +115,8 @@ public class ProductDaoTests {
         assertNotEquals(0, Optional.ofNullable(id));
         //CleanUp
         productDao.deleteById(id);
+        Long prodGroupId = productsGroup.getId();
+        productsGroupDao.deleteById(prodGroupId);
     }
 
     @Test
@@ -139,6 +145,8 @@ public class ProductDaoTests {
         //When&Then
         assertNotEquals(Optional.of(0), id);
         //CleanUp
+        productDao.deleteById(product1Id);
+        productDao.deleteById(product2Id);
         productsGroupDao.deleteById(id);
     }
 
@@ -190,12 +198,17 @@ public class ProductDaoTests {
         //CleanUp
         productDao.deleteById(product1Id);
         productDao.deleteById(product2Id);
+        productsGroupDao.deleteById(id);
+        cartDao.deleteById(cartId1);
+        cartDao.deleteById(cartId2);
+        cartDao.deleteById(cartId3);
     }
 
     @Test
     public void testSaveManyToManyOnOrderList() {
         //Given
         ProductsGroup productsGroup1 = new ProductsGroup("number one");
+        productsGroupDao.save(productsGroup1);
         List<Order> orderList = new ArrayList<>();
         List<Cart> cartList = new ArrayList<>();
         User user = new User("Name",1, "123");
@@ -210,6 +223,8 @@ public class ProductDaoTests {
                 new BigDecimal("100"), productsGroup1, cartList, orderList);
         Product product2 = new Product("name2", "description2",
                 new BigDecimal("200"), productsGroup1, cartList, orderList);
+        productDao.save(product1);
+        productDao.save(product2);
         List<Product> productList = new ArrayList<>();
         productList.add(product1);
         productList.add(product2);
@@ -240,7 +255,14 @@ public class ProductDaoTests {
         assertNotEquals(0, product1Id);
         assertNotEquals(0, product2Id);
         //CleanUp
+        Long prodGroupId = productsGroup1.getId();
+        Long userId = user.getId();
+        orderDao.deleteById(orderId1);
+        orderDao.deleteById(orderId2);
+        orderDao.deleteById(orderId3);
         productDao.deleteById(product1Id);
         productDao.deleteById(product2Id);
+        productsGroupDao.deleteById(prodGroupId);
+        userDao.deleteById(userId);
     }
 }

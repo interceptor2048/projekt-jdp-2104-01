@@ -83,6 +83,10 @@ public class CartEntityTestSuite {
         assertEquals(1, cart.getListOfProducts().size());
 
         //clean
+        Long productId = testProduct.getId();
+        Long prodGroupId = newGroup.getId();
+        productDao.deleteById(productId);
+        productsGroupDao.deleteById(prodGroupId);
         cartDao.deleteById(cart.getCartId());
     }
 
@@ -105,6 +109,7 @@ public class CartEntityTestSuite {
     public void testRelationWithUser() {
         //given
         Cart cart = new Cart();
+        cartDao.save(cart);
         User user = new User("username3", 1, "hgdasa");
         user.setCart(cart);
         userDao.save(user);
@@ -118,24 +123,27 @@ public class CartEntityTestSuite {
         //when
         user.getCart().getListOfProducts().add(testProduct);
         userDao.save(user);
-        Long cartId = cart.getCartId();
-        Long userId = user.getId();
         int listSize = cart.getListOfProducts().size();
-        cartDao.deleteById(cartId);
-        Optional<User> userFromDb = userDao.findById(userId);
 
         //then
         assertEquals(1, listSize);
-        assertTrue(userFromDb.isPresent());
 
         //clean
+        Long cartId = cart.getCartId();
+        Long userId = user.getId();
+        Long productId = testProduct.getId();
+        Long prodGroupId = newGroup.getId();
+        productDao.deleteById(productId);
+        productsGroupDao.deleteById(prodGroupId);
         userDao.deleteById(userId);
+        cartDao.deleteById(cartId);
     }
 
     @Test
     public void testRelationWithProduct() {
         //given
         Cart cart = new Cart();
+        cartDao.save(cart);
         ProductsGroup newGroup = new ProductsGroup("test group3");
         productsGroupDao.save(newGroup);
         Product testProduct = new Product("test product3", "test description3", new BigDecimal(300), newGroup);
@@ -155,6 +163,10 @@ public class CartEntityTestSuite {
         assertEquals(1, listSize);
 
         //clean
+        Long prodGroupId = newGroup.getId();
+        Long productId = testProduct.getId();
+        productDao.deleteById(productId);
+        productsGroupDao.deleteById(prodGroupId);
         cartDao.deleteById(cartId);
     }
 }
