@@ -12,15 +12,20 @@ import java.util.List;
 @NoArgsConstructor
 @Entity(name = "CARTS")
 public class Cart {
+    public Cart(User user) {
+        this.user = user;
+    }
+
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CART_ID")
+    @GeneratedValue
+    @Column(name = "CART_ID", unique = true)
     private Long cartId;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "USER_ID")
+
+    @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
     private User user;
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList")
+
+    @ManyToMany(mappedBy = "cartList", fetch = FetchType.LAZY)
     private List<Product> listOfProducts  = new ArrayList<>();
 }

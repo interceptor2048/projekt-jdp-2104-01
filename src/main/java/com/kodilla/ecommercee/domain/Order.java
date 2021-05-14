@@ -30,7 +30,7 @@ public class Order {
     @Column(name = "ORDER_DATE")
     private LocalDateTime orderDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "JOIN_PRODUCT_ORDER",
             joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
@@ -41,4 +41,5 @@ public class Order {
         this.user = user;
         this.orderDate = orderDate;
     }
+
 }

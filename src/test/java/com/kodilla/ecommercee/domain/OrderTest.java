@@ -29,11 +29,14 @@ public class OrderTest {
     @Autowired
     private ProductsGroupDao productsGroupDao;
 
+    @Autowired
+    private ProductDao productDao;
+
     @Test
     public void testCreate(){
         //given
-        User user = new User("create", 1, "createKey", LocalDateTime.now());
-
+        User user = new User("create", 1,
+                "createKey");
         userDao.save(user);
         Order order = new Order(user, LocalDateTime.now());
         //when
@@ -42,12 +45,15 @@ public class OrderTest {
 
         //then
         assertNotEquals(0L, orderId);
+
+        //clean
+        orderDao.deleteById(orderId);
     }
     @Test
     public void testRead(){
         //given
         User user = new User("readUser", 1,
-                "readKey", LocalDateTime.now());
+                "readKey");
         userDao.save(user);
         Order orderToProcess = new Order(user, LocalDateTime.now());
         orderDao.save(orderToProcess);
@@ -58,16 +64,21 @@ public class OrderTest {
         assertTrue(order.isPresent());
         assertNotEquals(0L, orderId);
 
+        //clean
+        orderDao.deleteById(orderId);
+        Long userId = user.getId();
+        userDao.deleteById(userId);
+
     }
 
     @Test
     public void testUpdate(){
         //given
         User user = new User("updateUser", 1,
-                "updateKey", LocalDateTime.now());
+                "updateKey");
         userDao.save(user);
         User newUser = new User("newUpdateUser", 1,
-                "newUpdateKey", LocalDateTime.now());
+                "newUpdateKey");
         userDao.save(newUser);
         //when
         Order order = new Order(user, LocalDateTime.now());
@@ -80,12 +91,19 @@ public class OrderTest {
         //then
         assertEquals(firstId, secondId);
         assertEquals("newUpdateUser", order.getUser().getUsername());
+
+        //clean
+        orderDao.deleteById(secondId);
+        Long userId = user.getId();
+        userDao.deleteById(userId);
+        Long newUserId = newUser.getId();
+        userDao.deleteById(newUserId);
     }
 
     @Test
     public void testDelete(){
         User user = new User("deleteUser", 1,
-                "deleteKey", LocalDateTime.now());
+                "deleteKey");
         userDao.save(user);
         Order order = new Order(user, LocalDateTime.now());
         orderDao.save(order);
@@ -95,13 +113,17 @@ public class OrderTest {
         Optional<Order> deletedOrder = orderDao.findById(orderId);
         //then
         assertFalse(deletedOrder.isPresent());
+
+        //clean
+        Long userId = user.getId();
+        userDao.deleteById(userId);
     }
 
     @Test
     public void testUserOderRelationship(){
         //given
         User user = new User("userOrderRelationshipUser", 1,
-                "userOrderRelationshipUserKey", LocalDateTime.now());
+                "userOrderRelationshipUserKey");
         userDao.save(user);
         Order order = new Order(user, LocalDateTime.now());
         orderDao.save(order);
@@ -109,17 +131,23 @@ public class OrderTest {
         long userId = user.getId();
         long orderUserId = order.getUser().getId();
         assertEquals(userId, orderUserId);
+
+        //clean
+        Long orderId = order.getId();
+        orderDao.deleteById(orderId);
+        userDao.deleteById(userId);
     }
 
     @Test
     public void testProductOrderRelationship(){
         User user = new User("productOrderRelationshipUser", 1,
-                "productOrderRelationshipUser", LocalDateTime.now());
+                "productOrderRelationshipUser");
         userDao.save(user);
         ProductsGroup group = new ProductsGroup("productOrderTestGroup");
         productsGroupDao.save(group);
         Product product = new Product("productOrderTestProduct", "description",
                 BigDecimal.valueOf(10), group);
+        productDao.save(product);
         //when
         Order order = new Order(user, LocalDateTime.now());
         order.setUser(user);
@@ -130,5 +158,15 @@ public class OrderTest {
 
         long productId = order.getProductList().get(0).getId();
         assertNotEquals(0L, productId);
+
+        //clean
+        //Long productId = product.getId();
+        Long orderId = order.getId();
+        orderDao.deleteById(orderId);
+        productDao.deleteById(productId);
+        Long prodGroupId = group.getId();
+        productsGroupDao.deleteById(prodGroupId);
+        Long userId = user.getId();
+        userDao.deleteById(userId);
     }
 }

@@ -30,13 +30,17 @@ public class UserController {
     public List<UserDto> getUsers() {
 
 
-        User user = new User("Wojtek", 1, "random", LocalDateTime.now());
-        Cart cart = new Cart();
-        cart.setCartId(1L);
-        System.out.println(cart.getCartId());
-        user.setCart(cart);
+        User user = new User("Wojtek cart", 1, "cart test", LocalDateTime.now());
+        Cart cart = new Cart(user);
 
+        user.setCart(cart);
         service.saveUser(user);
+        //System.out.println(cart.getCartId());
+        //user.setCart(cart);
+        //service.saveUser(user);
+        //UserDto nowy = updateUser(userMapper.mapToUserDto(user));
+
+        //
         //userDao.saveUser(user);
         //cart.setUser(user);
         //cartDao.save(cart);
@@ -49,10 +53,6 @@ public class UserController {
         return userMapper.mapToUserDto(service.getUser(userId).orElseThrow(UserNotFoundException::new));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteUser")
-    public void deleteUser(@RequestParam Long userId) {
-            service.delete(userId);
-    }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateUser")
     public UserDto updateUser(@RequestBody UserDto userDto) {

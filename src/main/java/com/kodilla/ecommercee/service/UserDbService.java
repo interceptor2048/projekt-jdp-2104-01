@@ -34,6 +34,7 @@ public class UserDbService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+
     }
     public User createUser(final User user) {
         return userRepository.save(user);
