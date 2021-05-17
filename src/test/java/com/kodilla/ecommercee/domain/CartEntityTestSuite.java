@@ -109,32 +109,37 @@ public class CartEntityTestSuite {
     @Test
     public void testRelationWithUser() {
         //given
-        User user = new User("username3", 1, "hgdasa", LocalDateTime.now());
         Cart cart = new Cart();
-        Cart zapisanyCart = cartDao.save(cart);
-        user.setCart(zapisanyCart);
+        cartDao.save(cart);
+        User user = new User("username3", 1, "hgdasa");
+        user.setCart(cart);
+        userDao.save(user);
+        cart.setUser(user);
+        cartDao.save(cart);
         ProductsGroup newGroup = new ProductsGroup("test group2");
-        User zapisany = userDao.save(user);
-        ProductsGroup productGroupsZapisany = productsGroupDao.save(newGroup);
+        productsGroupDao.save(newGroup);
         Product testProduct = new Product("test product2", "test description2", new BigDecimal(300), newGroup);
-        Product productZapisany = productDao.save(testProduct);
+        productDao.save(testProduct);
 
         //when
-        zapisany.getCart().getListOfProducts().add(testProduct);
-
+        user.getCart().getListOfProducts().add(testProduct);
+        userDao.save(user);
         int listSize = cart.getListOfProducts().size();
 
         //then
         assertEquals(1, listSize);
 
         //clean
-        Long cartId = zapisany.getCart().getCartId();
-        Long userId = zapisany.getId();
-        Long productId = productZapisany.getId();
-        Long prodGroupId = productGroupsZapisany.getId();
+        Long cartId = cart.getCartId();
+        Long userId = user.getId();
+        Long productId = testProduct.getId();
+        Long prodGroupId = newGroup.getId();
+        cart.setUser(null);
+        cartDao.save(cart);
         productDao.deleteById(productId);
         productsGroupDao.deleteById(prodGroupId);
         userDao.deleteById(userId);
+        cartDao.deleteById(cartId);
     }
 
     @Test
