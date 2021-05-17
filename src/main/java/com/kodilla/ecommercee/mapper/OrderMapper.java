@@ -13,19 +13,14 @@ public class OrderMapper {
 
     public Order mapToOrder(OrderDto orderDto){
         return new Order(
-                orderDto.getId(),
-                orderDto.getUser(),
-                orderDto.getOrderDate(),
-                orderDto.getProductList()
+                orderDto.getOrderDate()
         );
     }
 
     public OrderDto mapToOrderDto(Order order){
         return new OrderDto(
                 order.getId(),
-                order.getUser(),
-                order.getOrderDate(),
-                order.getProductList()
+                order.getOrderDate()
         );
     }
 
