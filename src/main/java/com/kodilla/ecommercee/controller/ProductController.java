@@ -50,12 +50,7 @@ public class ProductController {
         Product product = productMapper.mapToProduct(productDto);
         Optional<Product> productFromDb = productDbService.getProductById(productDto.getId());
         if (productFromDb.isPresent()) {
-            Product productToUpdate = productFromDb.get();
-            productToUpdate.setName(product.getName());
-            productToUpdate.setDescription(product.getDescription());
-            productToUpdate.setPrice(product.getPrice());
-            productToUpdate.setProductsGroup(product.getProductsGroup());
-            return productMapper.mapToProductDto(productDbService.saveProduct(productToUpdate));
+            return productMapper.mapToProductDto(productDbService.saveProduct(product));
         } else throw new ProductNotFoundException();
     }
 
