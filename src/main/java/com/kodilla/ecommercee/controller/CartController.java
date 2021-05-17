@@ -1,42 +1,61 @@
 package com.kodilla.ecommercee.controller;
+import com.kodilla.ecommercee.domain.*;
+import com.kodilla.ecommercee.exception.*;
 
-import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.mapper.CartMapper;
+import com.kodilla.ecommercee.mapper.UserMapper;
+import com.kodilla.ecommercee.service.CartDbService;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/v1/cart")
 public class CartController {
+    private final CartDbService cartService;
+    private final CartMapper cartMapper;
+    private final UserController userController;
+    private final UserMapper userMapper;
 
-    @PostMapping(value = "createCart")
-    public void createCart() {
 
+    @RequestMapping(method = RequestMethod.POST, value = "createCart", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void createCart(@RequestBody CartDto cartDto) {
+        Cart cart = cartMapper.mapToCart(cartDto);
+       /* Cart cart = new Cart(user);
+        user.setCart(cart);*/
+        cartService.createCart(cart);
     }
 
-    @GetMapping(value = "getCartProducts")
-    public List<ProductDto> getCartProducts
-            (@RequestParam Long cartId){
+    @RequestMapping(method = RequestMethod.GET, value = "upCarts")
+    //@RequestMapping(method = RequestMethod.PUT, value = "upCarts")
+    public CartDto upCarts() {
 
-        return new ArrayList<>();
+        try {
+            System.out.println("proba");
+            UserDto userTemp = userController.getUser(1L);
+
+            User temp = userMapper.mapToUser(userTemp);
+            CartDto nowyCart = new CartDto();
+            Cart zapisanyCart = cartService.createCart(cartMapper.mapToCart(nowyCart));
+            temp.setCart(zapisanyCart);
+            System.out.println(temp.getCart().getCartId());
+            UserDto poZmianie = userController.updateUser(temp);
+           // System.out.println(poZmianie.get);
+
+        } catch (UserNotFoundException e) {
+
+        }
+    return new CartDto();
     }
 
-    @PostMapping(value = "addProducts")
-    public void addProducts(@RequestBody
-                                    List<ProductDto> productDtos){
+
+
 
     }
-
-    @DeleteMapping(value = "removeProduct")
-    public void removeProduct(@RequestParam Long
-                                      productId){
-
-    }
-
-    @PostMapping(value = "closeCart")
-    public void closeCart(@RequestParam Long cartId){
-
-    }
-
-}

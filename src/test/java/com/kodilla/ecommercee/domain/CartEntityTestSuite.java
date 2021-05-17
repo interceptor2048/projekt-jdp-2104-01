@@ -110,8 +110,9 @@ public class CartEntityTestSuite {
     public void testRelationWithUser() {
         //given
         User user = new User("username3", 1, "hgdasa", LocalDateTime.now());
-        Cart cart = new Cart(user);
-        user.setCart(cart);
+        Cart cart = new Cart();
+        Cart zapisanyCart = cartDao.save(cart);
+        user.setCart(zapisanyCart);
         ProductsGroup newGroup = new ProductsGroup("test group2");
         User zapisany = userDao.save(user);
         ProductsGroup productGroupsZapisany = productsGroupDao.save(newGroup);

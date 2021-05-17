@@ -13,13 +13,15 @@ public class UserDto {
     private int status;
     private String userKey;
     private LocalDateTime expirationTime;
+    private Cart cart;
 
 
-    public UserDto(Long id, String username, int status, String userKey) {
+    public UserDto(Long id, String username, int status, String userKey, Cart cart) {
         this.id = id;
         this.username = username;
         this.status = status;
         this.userKey = userKey;
+        this.cart = cart;
     }
 
     public void setUserKey(String userKey) {

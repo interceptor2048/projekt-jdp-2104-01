@@ -21,7 +21,7 @@ public class UserMapper {
                 userDto.getUsername(),
                 userDto.getStatus(),
                 userDto.getUserKey(),
-                userDto.getExpirationTime());
+                userDto.getCart());
 
     }
 
@@ -30,6 +30,7 @@ public class UserMapper {
                 user.getId(),
                 user.getUsername(),
                 user.getStatus(),
-                user.getUserKey());
+                user.getUserKey(),
+                user.getCart());
     }
 }

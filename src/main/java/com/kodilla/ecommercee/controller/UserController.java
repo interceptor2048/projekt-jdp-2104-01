@@ -30,9 +30,15 @@ public class UserController {
     }
 
 
-    @RequestMapping(method = RequestMethod.PUT, value = "updateUser")
+    @RequestMapping(method = RequestMethod.PUT, value = "updateUserDto")
     public UserDto updateUser(@RequestBody UserDto userDto) {
         User user = userMapper.mapToUser(userDto);
+        User savedUser = service.saveUser(user);
+        return userMapper.mapToUserDto(savedUser);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "updateUser")
+    public UserDto updateUser(@RequestBody User user) {
         User savedUser = service.saveUser(user);
         return userMapper.mapToUserDto(savedUser);
     }
@@ -55,8 +61,8 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createUser(@RequestBody UserDto userDto) {
         User user = userMapper.mapToUser(userDto);
-        Cart cart = new Cart(user);
-        user.setCart(cart);
+       /* Cart cart = new Cart(user);
+        user.setCart(cart);*/
         service.createUser(user);
     }
 }

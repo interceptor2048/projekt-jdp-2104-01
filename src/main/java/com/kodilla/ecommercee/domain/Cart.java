@@ -15,6 +15,32 @@ public class Cart {
     public Cart(User user) {
         this.user = user;
     }
+    public Cart(Long cartId, User user) {
+        this.cartId = cartId;
+        this.user = user;
+    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CART_ID", unique = true)
+    private Long cartId;
+
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    @ManyToMany(mappedBy = "cartList", fetch = FetchType.LAZY)
+    private List<Product> listOfProducts  = new ArrayList<>();
+}
+
+/*
+@Data
+@NoArgsConstructor
+@Entity(name = "CARTS")
+public class Cart {
+    public Cart(User user) {
+        this.user = user;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,5 +53,5 @@ public class Cart {
     private User user;
 
     @ManyToMany(mappedBy = "cartList", fetch = FetchType.LAZY)
-    private List<Product> listOfProducts  = new ArrayList<>();
-}
+    private List<Product> listOfProducts = new ArrayList<>();
+}*/
