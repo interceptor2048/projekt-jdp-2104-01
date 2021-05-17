@@ -1,19 +1,14 @@
 package com.kodilla.ecommercee.controller;
 
-import com.kodilla.ecommercee.domain.Cart;
-import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.domain.ProductDto;
-import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.exception.CartNotFoundException;
-import com.kodilla.ecommercee.exception.ProductNotFoundException;
-import com.kodilla.ecommercee.exception.UserNotAuthenticatedException;
-import com.kodilla.ecommercee.exception.UserNotFoundException;
+import com.kodilla.ecommercee.domain.*;
+import com.kodilla.ecommercee.exception.*;
 import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.CartDbService;
 import com.kodilla.ecommercee.service.DbService;
 import com.kodilla.ecommercee.service.UserAuthenticator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -26,8 +21,6 @@ import java.util.stream.Collectors;
 public class CartController {
 
     private final CartDbService cartService;
-    private final DbService userService;
-    private final CartMapper cartMapper;
     private final ProductMapper productMapper;
 
     @PostMapping(value = "createCart")
@@ -48,10 +41,10 @@ public class CartController {
         }
     }
 
-    @PutMapping(value = "addProducts")
+    @PutMapping(value = "addProducts", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addProducts(@RequestParam Long cartId, @RequestParam String userKey,
                             @RequestBody List<ProductDto> productDtos)
-            throws CartNotFoundException, UserNotAuthenticatedException {
+            throws CartNotFoundException, UserNotAuthenticatedException, GroupNotFoundException {
         List<Product> products = productMapper.mapToProductList(productDtos);
         cartService.addProducts(cartId, products, userKey);
     }
@@ -64,8 +57,8 @@ public class CartController {
     }
 
     @PostMapping(value = "closeCart")
-    public void closeCart(@RequestParam Long cartId, @RequestParam String userKey){
-
+    public void closeCart(@RequestParam Long cartId, @RequestParam String userKey) throws UserNotAuthenticatedException, CartNotFoundException {
+        cartService.closeCart(cartId, userKey);
     }
 
 }

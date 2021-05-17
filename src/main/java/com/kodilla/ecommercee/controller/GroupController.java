@@ -2,16 +2,13 @@ package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.dao.ProductsGroupDao;
 import com.kodilla.ecommercee.domain.GroupDto;
-import com.kodilla.ecommercee.domain.GroupNotFoundException;
-import com.kodilla.ecommercee.domain.Product;
+import com.kodilla.ecommercee.exception.GroupNotFoundException;
 import com.kodilla.ecommercee.domain.ProductsGroup;
 import com.kodilla.ecommercee.mapper.GroupMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

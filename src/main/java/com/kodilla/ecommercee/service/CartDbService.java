@@ -15,6 +15,8 @@ import com.kodilla.ecommercee.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,10 +40,7 @@ public class CartDbService {
                 user.setCart(cart);
                 userDao.save(user);
             }
-        } else {
-            throw new UserNotAuthenticatedException();
         }
-
     }
 
     public Cart save(Cart cart){
@@ -53,8 +52,9 @@ public class CartDbService {
         Cart cart = getCart(cartId);
         if (authenticator.isAuthenticated(cart.getUser(), userKeyToCheck)){
             return cart.getListOfProducts();
+        } else {
+            return new ArrayList<>();
         }
-        throw new UserNotAuthenticatedException();
     }
 
     public void removeProduct (Long cartId, Long productId, String userKeyToCheck) throws CartNotFoundException,
@@ -64,31 +64,35 @@ public class CartDbService {
             Product product = productDao.findById(productId).orElseThrow(ProductNotFoundException::new);
             cart.getListOfProducts().remove(product);
             cartDao.save(cart);
-        } else {
-            throw new UserNotAuthenticatedException();
         }
     }
 
-    public Cart addProducts (Long cartId, List<Product> products, String userKeyToCheck)
+    public void addProducts (Long cartId, List<Product> products, String userKeyToCheck)
             throws CartNotFoundException, UserNotAuthenticatedException {
         Cart cart = getCart(cartId);
         if (authenticator.isAuthenticated(cart.getUser(), userKeyToCheck)){
             cart.getListOfProducts().addAll(products);
-            return cartDao.save(cart);
+            cartDao.save(cart);
         }
-        throw new UserNotAuthenticatedException();
-
     }
 
-    public Order closeCart(Long cartId) throws CartNotFoundException {
+    public void closeCart(Long cartId, String userKeyToCheck) throws CartNotFoundException,
+            UserNotAuthenticatedException {
         Cart cart = getCart(cartId);
-        User cartUser = cart.getUser();
-        return null;
-
+        User user = cart.getUser();
+        if (authenticator.isAuthenticated(user, userKeyToCheck)){
+            List<Product> products = new ArrayList<>(cart.getListOfProducts());
+            cart.getListOfProducts().clear();
+            cartDao.save(cart);
+            Order order = new Order(user, LocalDateTime.now(), products);
+            orderDao.save(order);
+        }
     }
 
     public Cart getCart(Long cartId) throws CartNotFoundException {
         Optional<Cart> optCart = cartDao.findById(cartId);
         return optCart.orElseThrow(CartNotFoundException::new);
     }
+
+
 }

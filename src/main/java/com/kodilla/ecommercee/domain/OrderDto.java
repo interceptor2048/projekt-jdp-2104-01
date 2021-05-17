@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class OrderDto {
     private long id;
-    private long user_id;
-    private long cart_id;
+    private long userId;
+
 }

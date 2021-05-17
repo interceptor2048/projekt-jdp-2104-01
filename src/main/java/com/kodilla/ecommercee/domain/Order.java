@@ -36,9 +36,10 @@ public class Order {
     )
     private List<Product> productList = new ArrayList<>();
 
-    public Order(User user, LocalDateTime orderDate) {
+    public Order(User user, LocalDateTime orderDate, List<Product> productList) {
         this.user = user;
         this.orderDate = orderDate;
+        this.productList = productList;
     }
 
 }

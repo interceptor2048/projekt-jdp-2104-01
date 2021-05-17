@@ -23,12 +23,12 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.GET,value = "getOrder")
     public OrderDto getOrder(@RequestParam Long orderId){
-        return new OrderDto(1,1,1);
+        return null;
     }
 
     @RequestMapping(method = RequestMethod.PUT,value = "updateOrder")
     public OrderDto updateOrder(@RequestBody OrderDto orderDto){
-        return new OrderDto(2,2,2);
+        return null;
     }
 
     @RequestMapping(method = RequestMethod.DELETE,value = "deleteOrder")

@@ -2,6 +2,11 @@ package com.kodilla.ecommercee.controller;
 
 
 import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.exception.GroupNotFoundException;
+import com.kodilla.ecommercee.exception.ProductNotFoundException;
+import com.kodilla.ecommercee.mapper.ProductMapper;
+import com.kodilla.ecommercee.service.ProductDbService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +16,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/product")
-public class
-ProductController {
+@RequiredArgsConstructor
+public class ProductController {
+    private final ProductDbService productDbService;
+    private final ProductMapper productMapper;
+
     @RequestMapping(method = RequestMethod.GET, value = "getProducts")
     public List<ProductDto> getProducts() {
         return new ArrayList<>();
@@ -24,7 +32,8 @@ ProductController {
     }
 
     @PostMapping(value = "createProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createProduct(@RequestBody ProductDto productDto) {
+    public void createProduct(@RequestBody ProductDto productDto) throws ProductNotFoundException, GroupNotFoundException {
+        productDbService.save(productMapper.mapToProduct(productDto));
     }
 
     @PutMapping(value = "updateProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
