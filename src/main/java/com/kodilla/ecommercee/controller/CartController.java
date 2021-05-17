@@ -3,18 +3,21 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.exception.CartNotFoundException;
 import com.kodilla.ecommercee.exception.ProductNotFoundException;
+import com.kodilla.ecommercee.exception.UserNotAuthenticatedException;
 import com.kodilla.ecommercee.exception.UserNotFoundException;
 import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.CartDbService;
+import com.kodilla.ecommercee.service.DbService;
+import com.kodilla.ecommercee.service.UserAuthenticator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,44 +25,46 @@ import java.util.stream.Collectors;
 @RequestMapping("/v1/cart")
 public class CartController {
 
-    private final CartDbService service;
+    private final CartDbService cartService;
+    private final DbService userService;
     private final CartMapper cartMapper;
     private final ProductMapper productMapper;
 
     @PostMapping(value = "createCart")
-    public Cart createCart(@RequestParam Long userId) throws UserNotFoundException {
-        //dodać klucz -> sprawdzić czy klucz jest poprawny i aktywny
-        //sprawdzić czy użytkownik nie ma już koszyka
-        return service.createCart(userId);
+    public void createCart(@RequestParam Long userId, @RequestParam String userKey) throws UserNotFoundException,
+            UserNotAuthenticatedException {
+         cartService.createCart(userId, userKey);
     }
 
     @GetMapping(value = "getCartProducts")
-    public List<ProductDto> getCartProducts (@RequestParam Long cartId){
+    public List<ProductDto> getCartProducts (@RequestParam Long cartId, @RequestParam String userKey){
         try {
-            List<Product> products = service.getCartProducts(cartId);
+            List<Product> products = cartService.getCartProducts(cartId, userKey);
             return products.stream()
                     .map(productMapper::mapToProductDto)
                     .collect(Collectors.toList());
-        } catch (CartNotFoundException e){
+        } catch (CartNotFoundException | UserNotAuthenticatedException e){
             return new ArrayList<>();
         }
     }
 
     @PutMapping(value = "addProducts")
-    public void addProducts(@RequestParam Long cartId, @RequestBody List<ProductDto> productDtos)
-            throws CartNotFoundException {
+    public void addProducts(@RequestParam Long cartId, @RequestParam String userKey,
+                            @RequestBody List<ProductDto> productDtos)
+            throws CartNotFoundException, UserNotAuthenticatedException {
         List<Product> products = productMapper.mapToProductList(productDtos);
-        service.addProducts(cartId, products);
+        cartService.addProducts(cartId, products, userKey);
     }
 
     @DeleteMapping(value = "removeProduct")
-    public void removeProduct(@RequestParam Long cartId, @RequestParam Long productId)
-            throws CartNotFoundException, ProductNotFoundException {
-        service.removeProduct(cartId, productId);
+    public void removeProduct(@RequestParam Long cartId, @RequestParam Long productId,
+                              @RequestParam String userKey)
+            throws CartNotFoundException, ProductNotFoundException, UserNotAuthenticatedException {
+        cartService.removeProduct(cartId, productId, userKey);
     }
 
     @PostMapping(value = "closeCart")
-    public void closeCart(@RequestParam Long cartId){
+    public void closeCart(@RequestParam Long cartId, @RequestParam String userKey){
 
     }
 

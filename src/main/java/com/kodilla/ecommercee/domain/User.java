@@ -1,30 +1,29 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.time.LocalTime;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "USERS")
 public class User {
-    public User(Long id, @NotNull String username, @NotNull int status, @NotNull String userKey, LocalDateTime expirationTime) {
-        this.id = id;
+
+    public User (@NotNull String username, @NotNull int status, @NotNull String userKey) {
         this.username = username;
         this.status = status;
         this.userKey = userKey;
-        this.expirationTime = expirationTime;
+        this.expirationTime = LocalDateTime.now().plusHours(1L);
     }
-    public User() {}
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column(unique = true)
     private Long id;
 
     @NotNull
@@ -39,18 +38,20 @@ public class User {
     @Column(name = "USER_KEY", unique = true)
     private String userKey;
 
+    @NotNull
     @Column(name = "EXPIRATION_TIME")
     private LocalDateTime expirationTime;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CART_ID")
+    private Cart cart;
 
     @OneToMany(
             targetEntity = Order.class,
             mappedBy = "user",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     private List<Order> listOfOrders = new ArrayList<>();
 
-    public void setListOfOrders(List<Order> listOfOrders) {
-        this.listOfOrders = listOfOrders;
-    }
+
 }
