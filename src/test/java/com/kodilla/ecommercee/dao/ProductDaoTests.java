@@ -106,8 +106,10 @@ public class ProductDaoTests {
         //When
         productsGroupDao.save(productsGroup);
         productDao.save(product);
-        productDao.findByNameAndPrice(product.getName(), product.getPrice());
-        Long id = product.getId();
+        List<Product> listOfProducts = productDao.findByNameAndPrice(product.getName(), product.getPrice());
+        //żeby wartość którą zwraca ta metoda w linii 109 mogła być użyta poniżej do porównania (a takie chyba było założenie)
+        //trzeba w prowadzic te zmiany w kodzie
+        Long id = listOfProducts.get(0).getId();
 
         //Then
         assertNotEquals(0, Optional.ofNullable(id));
