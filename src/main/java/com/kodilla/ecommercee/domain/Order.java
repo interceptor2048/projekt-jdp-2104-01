@@ -17,7 +17,6 @@ public class Order {
 
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name = "ID", unique = true)
     private Long id;
 

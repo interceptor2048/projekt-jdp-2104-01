@@ -14,7 +14,6 @@ import java.util.List;
 public class Cart {
 
     @Id
-    @NotNull
     @GeneratedValue
     @Column(name = "CART_ID", unique = true)
     private Long cartId;

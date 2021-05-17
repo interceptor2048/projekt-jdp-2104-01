@@ -25,7 +25,6 @@ public class Product {
 
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name = "ID", unique = true)
     private Long id;
 
