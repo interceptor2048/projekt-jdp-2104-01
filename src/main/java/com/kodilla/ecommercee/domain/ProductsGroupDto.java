@@ -5,11 +5,9 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class GroupDto {
+public class ProductsGroupDto {
 
     private Long id;
     private String name;
 
-    public GroupDto() {
-    }
 }

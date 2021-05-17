@@ -25,7 +25,6 @@ public class Product {
 
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name = "ID", unique = true)
     private Long id;
 
@@ -42,10 +41,10 @@ public class Product {
     private BigDecimal price;
 
     @ManyToOne
-//    @JoinColumn(name= "GROUP_ID")
+    @JoinColumn(name= "GROUP_ID")
     @NotNull
     private ProductsGroup productsGroup;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name="JOIN_CART_PROD",
             joinColumns = {@JoinColumn(name = "PRODUCT_ID",
@@ -55,7 +54,7 @@ public class Product {
     )
     private List<Cart> cartList = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "productList", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "productList")
     private List<Order> orderList = new ArrayList<>();
 
     public Product(String name, String description, BigDecimal price,

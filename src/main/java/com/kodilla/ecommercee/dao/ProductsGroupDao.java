@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 @Repository
-public interface ProductsGroupDao extends CrudRepository<ProductsGroup,Long> {
+public interface ProductsGroupDao extends CrudRepository<ProductsGroup, Long> {
 
-
+    @Override
+    List<ProductsGroup> findAll();
 }

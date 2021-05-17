@@ -1,12 +1,10 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +14,15 @@ import java.util.List;
 public class Cart {
 
     @Id
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CART_ID")
+    @GeneratedValue
+    @Column(name = "CART_ID", unique = true)
     private Long cartId;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartList")
+
+    @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
+    private User user;
+
+    @ManyToMany(mappedBy = "cartList", fetch = FetchType.LAZY)
     private List<Product> listOfProducts  = new ArrayList<>();
 
 }
