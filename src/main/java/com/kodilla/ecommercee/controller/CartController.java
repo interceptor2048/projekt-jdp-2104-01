@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class CartController {
     @PutMapping(value = "addProducts", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addProducts(@RequestParam Long cartId, @RequestParam String userKey,
                             @RequestBody List<ProductDto> productDtos)
-            throws CartNotFoundException, UserNotAuthenticatedException, GroupNotFoundException {
+            throws CartNotFoundException, UserNotAuthenticatedException,  ProductsGroupNotFoundException {
         List<Product> products = productMapper.mapToProductList(productDtos);
         cartService.addProducts(cartId, products, userKey);
     }

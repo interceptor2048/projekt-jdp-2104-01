@@ -64,6 +64,8 @@ public class CartDbService {
             Product product = productDao.findById(productId).orElseThrow(ProductNotFoundException::new);
             cart.getListOfProducts().remove(product);
             cartDao.save(cart);
+            product.getCartList().remove(cart);
+            productDao.save(product);
         }
     }
 
@@ -73,6 +75,10 @@ public class CartDbService {
         if (authenticator.isAuthenticated(cart.getUser(), userKeyToCheck)){
             cart.getListOfProducts().addAll(products);
             cartDao.save(cart);
+            for (Product product : products){
+                product.getCartList().add(cart);
+                productDao.save(product);
+            }
         }
     }
 
@@ -83,9 +89,16 @@ public class CartDbService {
         if (authenticator.isAuthenticated(user, userKeyToCheck)){
             List<Product> products = new ArrayList<>(cart.getListOfProducts());
             cart.getListOfProducts().clear();
+            removeCartFromProducts(cart, products);
             cartDao.save(cart);
             Order order = new Order(user, LocalDateTime.now(), products);
             orderDao.save(order);
+        }
+    }
+
+    private void removeCartFromProducts(Cart cart, List<Product> products){
+        for (Product product : products){
+            product.getCartList().remove(cart);
         }
     }
 
@@ -93,6 +106,5 @@ public class CartDbService {
         Optional<Cart> optCart = cartDao.findById(cartId);
         return optCart.orElseThrow(CartNotFoundException::new);
     }
-
 
 }

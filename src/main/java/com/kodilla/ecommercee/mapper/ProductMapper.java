@@ -1,12 +1,10 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.dao.ProductsGroupDao;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.domain.ProductsGroup;
-import com.kodilla.ecommercee.exception.GroupNotFoundException;
-import com.kodilla.ecommercee.exception.ProductNotFoundException;
-import com.kodilla.ecommercee.service.ProductDbService;
-import com.kodilla.ecommercee.service.ProductsGroupService;
+import com.kodilla.ecommercee.exception.ProductsGroupNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,24 +17,47 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ProductMapper {
 
-    private final ProductsGroupService productsGroupService;
+    private final ProductsGroupDao productsGroupDao;
 
-    public ProductDto mapToProductDto(Product product){
-        return new ProductDto(product.getId(),
+    public Product mapToProduct(final ProductDto productDto) throws ProductsGroupNotFoundException {
+
+        Optional<ProductsGroup> productsGroupOptional = productsGroupDao.findById(Long.parseLong(productDto.getGroupId()));
+
+        if (productsGroupOptional.isPresent()) {
+            ProductsGroup productsGroup = productsGroupOptional.get();
+
+            return new Product(
+                    productDto.getId(),
+                    productDto.getName(),
+                    productDto.getDescription(),
+                    productDto.getPrice(),
+                    productsGroup
+            );
+        } else throw new ProductsGroupNotFoundException();
+    }
+
+    public ProductDto mapToProductDto(final Product product) {
+
+        return new ProductDto(
+                product.getId(),
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
-                product.getProductsGroup().getId());
+                String.valueOf(product.getProductsGroup().getId())
+        );
     }
 
-    public Product mapToProduct(ProductDto productDto) {
-        return new Product();
-    }
-
-    public List<Product> mapToProductList(List<ProductDto> productDtos) throws GroupNotFoundException {
-        return productDtos.stream()
-                .map(this::mapToProduct)
+    public List<ProductDto> mapToProductDtoList(final List<Product> productsList) {
+        return productsList.stream()
+                .map(this::mapToProductDto)
                 .collect(Collectors.toList());
     }
 
+    public List<Product> mapToProductList(List<ProductDto> productDtos) throws ProductsGroupNotFoundException {
+        List<Product> products = new ArrayList<>();
+        for (ProductDto productDto : productDtos){
+            products.add(mapToProduct(productDto));
+        }
+        return products;
+    }
 }
