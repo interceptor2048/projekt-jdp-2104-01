@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -44,18 +45,8 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "generateUserKey")
-    public UserDto generateUserKey(@RequestParam Long userId) {
-        try {
-            UserDto userToChangeKey = getUser(userId);
-            int key = (int)(Math.random()*20000);
-            userToChangeKey.setUserKey(String.valueOf(key));
-            userToChangeKey.setExpirationTime(LocalDateTime.now().plusHours(1L));
-            User savedUser = service.saveUser(userMapper.mapToUser(userToChangeKey));
-            return userMapper.mapToUserDto(savedUser);
-        } catch (UserNotFoundException e) {
-            System.out.println("User not found");
-            return null;
-        }
+    public void generateUserKey(@RequestParam Long userId) {
+          service.generateKey(userId);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
