@@ -2,8 +2,7 @@ package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
-import com.kodilla.ecommercee.domain.ProductNotFoundException;
-import com.kodilla.ecommercee.domain.ProductsGroupNotFoundException;
+import com.kodilla.ecommercee.exception.ProductNotFoundException;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.ProductDbService;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +33,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "createProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ProductDto createProduct(@RequestBody ProductDto productDto) throws ProductsGroupNotFoundException {
+    public ProductDto createProduct(@RequestBody ProductDto productDto) throws com.kodilla.ecommercee.exception.ProductsGroupNotFoundException {
             Product product = productMapper.mapToProduct(productDto);
             Product createdProduct = productDbService.saveProduct(new Product(
                     product.getName(),

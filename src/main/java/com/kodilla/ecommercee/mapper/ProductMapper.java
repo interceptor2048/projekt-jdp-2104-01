@@ -4,10 +4,11 @@ import com.kodilla.ecommercee.dao.ProductsGroupDao;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.domain.ProductsGroup;
-import com.kodilla.ecommercee.domain.ProductsGroupNotFoundException;
+import com.kodilla.ecommercee.exception.ProductsGroupNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -50,5 +51,13 @@ public class ProductMapper {
         return productsList.stream()
                 .map(this::mapToProductDto)
                 .collect(Collectors.toList());
+    }
+
+    public List<Product> mapToProductList(List<ProductDto> productDtos) throws ProductsGroupNotFoundException {
+        List<Product> products = new ArrayList<>();
+        for (ProductDto productDto : productDtos){
+            products.add(mapToProduct(productDto));
+        }
+        return products;
     }
 }

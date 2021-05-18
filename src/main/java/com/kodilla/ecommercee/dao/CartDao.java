@@ -12,6 +12,8 @@ import java.util.List;
 public interface CartDao extends CrudRepository<Cart, Long> {
 
     @Override
+    Cart save(Cart cart);
+    
     List<Cart> findAll();
 }
 

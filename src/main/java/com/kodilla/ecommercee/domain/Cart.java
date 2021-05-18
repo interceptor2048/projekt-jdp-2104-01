@@ -17,11 +17,14 @@ public class Cart {
     @Column(name = "CART_ID", unique = true)
     private Long cartId;
 
-
     @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
     private User user;
 
     @ManyToMany(mappedBy = "cartList", fetch = FetchType.LAZY)
     private List<Product> listOfProducts  = new ArrayList<>();
 
+    public Cart(User user) {
+        this.user = user;
+    }
 }
+
