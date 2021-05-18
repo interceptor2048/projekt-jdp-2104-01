@@ -35,8 +35,7 @@ public class ProductsGroupController {
 
     @RequestMapping(method = RequestMethod.POST, value = "createGroup", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createGroup(@RequestBody ProductsGroupDto productsGroupDto) {
-        ProductsGroup group = productsGroupMapper.mapToGroup(productsGroupDto);
-        service.save(group);
+        service.save(new ProductsGroup(productsGroupDto.getName()));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateGroup")

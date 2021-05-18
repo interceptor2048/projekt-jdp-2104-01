@@ -24,7 +24,7 @@ public class Product {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
 
@@ -44,6 +44,7 @@ public class Product {
     @JoinColumn(name= "GROUP_ID")
     @NotNull
     private ProductsGroup productsGroup;
+
     @ManyToMany
     @JoinTable(
             name="JOIN_CART_PROD",
@@ -59,6 +60,15 @@ public class Product {
 
     public Product(String name, String description, BigDecimal price,
                    ProductsGroup productsGroup) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.productsGroup = productsGroup;
+    }
+
+    public Product(Long id, String name, String description, BigDecimal price,
+                   ProductsGroup productsGroup) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
