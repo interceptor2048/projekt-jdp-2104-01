@@ -18,11 +18,10 @@ import java.util.List;
 public class Order {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;
@@ -38,10 +37,10 @@ public class Order {
     )
     private List<Product> productList = new ArrayList<>();
 
-    public Order(User user, LocalDateTime orderDate) {
-        this.user = user;
-        this.orderDate = orderDate;
-    }
+//    public Order(User user, LocalDateTime orderDate) {
+//        this.user = user;
+//        this.orderDate = orderDate;
+//    }
 
     public Order(LocalDateTime orderDate){
         this.orderDate = orderDate;

@@ -31,6 +31,7 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.POST,value = "createOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createOrder(@RequestBody OrderDto orderDto){
+        orderDto.setOrderDate(LocalDateTime.now());
         Order order = mapper.mapToOrder(orderDto);
         service.save(order);
     }
