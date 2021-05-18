@@ -1,7 +1,9 @@
 package com.kodilla.ecommercee.domain;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -55,6 +57,7 @@ public class Product {
 
     @ManyToMany(mappedBy = "productList")
     private List<Order> orderList = new ArrayList<>();
+    
     public Product(String name, String description, BigDecimal price,
                    ProductsGroup productsGroup) {
         this.name = name;
@@ -72,3 +75,4 @@ public class Product {
         this.productsGroup = productsGroup;
     }
 }
+

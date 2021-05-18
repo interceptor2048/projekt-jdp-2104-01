@@ -2,17 +2,13 @@ package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.*;
 import com.kodilla.ecommercee.exception.*;
-import com.kodilla.ecommercee.mapper.CartMapper;
+import com.kodilla.ecommercee.exception.ProductNotFoundException;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.CartDbService;
-import com.kodilla.ecommercee.service.DbService;
-import com.kodilla.ecommercee.service.UserAuthenticator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +41,7 @@ public class CartController {
     @PutMapping(value = "addProducts", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addProducts(@RequestParam Long cartId, @RequestParam String userKey,
                             @RequestBody List<ProductDto> productDtos)
-            throws CartNotFoundException, UserNotAuthenticatedException,  ProductsGroupNotFoundException {
+            throws CartNotFoundException, UserNotAuthenticatedException, ProductsGroupNotFoundException {
         List<Product> products = productMapper.mapToProductList(productDtos);
         cartService.addProducts(cartId, products, userKey);
     }

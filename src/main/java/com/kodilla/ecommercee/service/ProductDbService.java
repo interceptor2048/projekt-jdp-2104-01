@@ -15,7 +15,7 @@ public class ProductDbService {
     private final ProductDao productDao;
 
     public List<Product> getAllProducts(){
-        return (List<Product>) productDao.findAll();
+        return  productDao.findAll();
     }
 
     public Optional<Product> getProductById(Long productId){

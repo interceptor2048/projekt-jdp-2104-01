@@ -42,4 +42,9 @@ public class Order {
         this.productList = productList;
     }
 
+    public Order(User user, LocalDateTime orderDate) {
+        this.user = user;
+        this.orderDate = orderDate;
+    }
+
 }

@@ -21,19 +21,19 @@ public class ProductMapper {
 
     public Product mapToProduct(final ProductDto productDto) throws ProductsGroupNotFoundException {
 
-        Optional<ProductsGroup> productsGroupOptional = productsGroupDao.findById(Long.parseLong(productDto.getGroupId()));
+            Optional<ProductsGroup> productsGroupOptional = productsGroupDao.findById(Long.parseLong(productDto.getGroupId()));
 
-        if (productsGroupOptional.isPresent()) {
-            ProductsGroup productsGroup = productsGroupOptional.get();
+            if (productsGroupOptional.isPresent()) {
+                ProductsGroup productsGroup = productsGroupOptional.get();
 
-            return new Product(
-                    productDto.getId(),
-                    productDto.getName(),
-                    productDto.getDescription(),
-                    productDto.getPrice(),
-                    productsGroup
-            );
-        } else throw new ProductsGroupNotFoundException();
+                return new Product(
+                        productDto.getId(),
+                        productDto.getName(),
+                        productDto.getDescription(),
+                        productDto.getPrice(),
+                        productsGroup
+                );
+            } else throw new ProductsGroupNotFoundException();
     }
 
     public ProductDto mapToProductDto(final Product product) {

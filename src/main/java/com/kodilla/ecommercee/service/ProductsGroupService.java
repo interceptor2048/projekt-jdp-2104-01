@@ -12,21 +12,21 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductsGroupService {
 
-    private final ProductsGroupDao productsGroupDao;
+    private final ProductsGroupDao groupRepository;
 
     public List<ProductsGroup> findAll() {
-        return (List<ProductsGroup>) productsGroupDao.findAll();
+        return groupRepository.findAll();
     }
 
     public ProductsGroup save(final ProductsGroup group) {
-        return productsGroupDao.save(group);
+        return groupRepository.save(group);
     }
 
     public Optional<ProductsGroup> findById(final Long id) {
-        return productsGroupDao.findById(id);
+        return groupRepository.findById(id);
     }
 
     public void deleteById(final Long groupId) {
-        productsGroupDao.deleteById(groupId);
+        groupRepository.deleteById(groupId);
     }
 }
