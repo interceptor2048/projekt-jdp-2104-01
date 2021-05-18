@@ -7,20 +7,13 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @Transactional
 @Repository
 public interface ProductDao extends CrudRepository<Product, Long> {
+
     @Override
     List<Product> findAll();
 
-    @Override
-    Optional<Product> findById(Long productId);
-
     List<Product> findByNameAndPrice(String name, BigDecimal price);
-
-    @Override
-    void deleteById(Long productId);
-
 }
