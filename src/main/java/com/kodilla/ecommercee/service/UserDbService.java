@@ -16,10 +16,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserDbService {
 
-    private final ProductsGroupDao groupRepository;
+    //private final ProductsGroupDao groupRepository;
     private final UserDao userRepository;
 
-    public List<ProductsGroup> getAllGroups() {
+    /*public List<ProductsGroup> getAllGroups() {
         return (List<ProductsGroup>) groupRepository.findAll();
     }
 
@@ -30,7 +30,7 @@ public class UserDbService {
     public Optional<ProductsGroup> getGroup(final Long id) {
         return groupRepository.findById(id);
     }
-
+*/
     public List<User> getAllUsers() {
         return userRepository.findAll();
 
@@ -47,9 +47,9 @@ public class UserDbService {
         return userRepository.save(user);
     }
 
-    public void delete(long id){
+    /*public void delete(long id){
         userRepository.deleteById(id);
-    }
+    }*/
 
     public void generateKey(Long userId) {
         Optional<User> userToChangeKey = getUser(userId);
@@ -59,7 +59,6 @@ public class UserDbService {
         user.setUserKey(String.valueOf(key));
         user.setExpirationTime(LocalDateTime.now().plusHours(1L));
         User savedUser = saveUser(user);
-
     }
 
 }
