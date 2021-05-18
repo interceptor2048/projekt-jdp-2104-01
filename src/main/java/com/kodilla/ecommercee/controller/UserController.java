@@ -6,6 +6,7 @@ import com.kodilla.ecommercee.domain.UserDto;
 import com.kodilla.ecommercee.exception.UserNotFoundException;
 import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.DbService;
+import com.kodilla.ecommercee.service.UserDbService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ import java.util.List;
 @RequestMapping("/v1/user")
 public class UserController {
     private final UserMapper userMapper;
-    private final DbService service;
+    private final UserDbService service;
 
     @RequestMapping(method = RequestMethod.GET, value = "getUsers")
     public List<UserDto> getUsers() {
@@ -44,19 +45,10 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "generateUserKey")
-    public UserDto generateUserKey(@RequestParam Long userId) {
-        try {
-            UserDto userToChangeKey = getUser(userId);
-            int key = (int)(Math.random()*20000);
-            userToChangeKey.setUserKey(String.valueOf(key));
-            userToChangeKey.setExpirationTime(LocalDateTime.now().plusHours(1L));
-            User savedUser = service.saveUser(userMapper.mapToUser(userToChangeKey));
-            return userMapper.mapToUserDto(savedUser);
-        } catch (UserNotFoundException e) {
-            System.out.println("User not found");
-            return null;
-        }
+    public void generateUserKey(@RequestParam Long userId) {
+        service.generateKey(userId);
     }
+
 
     @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createUser(@RequestBody UserDto userDto) {
