@@ -16,21 +16,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserDbService {
 
-    //private final ProductsGroupDao groupRepository;
     private final UserDao userRepository;
 
-    /*public List<ProductsGroup> getAllGroups() {
-        return (List<ProductsGroup>) groupRepository.findAll();
-    }
-
-    public ProductsGroup saveGroup(final ProductsGroup group) {
-        return groupRepository.save(group);
-    }
-
-    public Optional<ProductsGroup> getGroup(final Long id) {
-        return groupRepository.findById(id);
-    }
-*/
     public List<User> getAllUsers() {
         return userRepository.findAll();
 
@@ -43,14 +30,17 @@ public class UserDbService {
     public Optional<User> getUser(long id) {
         return userRepository.findById(id);
     }
+
     public User saveUser(final User user) {
         return userRepository.save(user);
     }
 
-    /*public void delete(long id){
-        userRepository.deleteById(id);
-    }*/
-
+    public void disableUser(Long userId) {
+        Optional<User> userToDisable = getUser(userId);
+        User user = userToDisable.orElseThrow(UserNotFoundException::new);
+        user.setStatus(0);
+        User savedUser = saveUser(user);
+    }
     public void generateKey(Long userId) {
         Optional<User> userToChangeKey = getUser(userId);
         User user = userToChangeKey.orElseThrow(UserNotFoundException::new);
