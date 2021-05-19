@@ -57,7 +57,7 @@ public class Product {
 
     @ManyToMany(mappedBy = "productList")
     private List<Order> orderList = new ArrayList<>();
-
+    
     public Product(String name, String description, BigDecimal price,
                    ProductsGroup productsGroup) {
         this.name = name;

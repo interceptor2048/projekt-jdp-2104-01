@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.controller;
 
 
+import com.kodilla.ecommercee.controller.exception.OrderNotFoundException;
 import com.kodilla.ecommercee.dao.OrderDao;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.OrderDto;
@@ -37,9 +38,9 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.GET,value = "getOrder")
-    public OrderDto getOrder(@RequestParam Long orderId) throws UserNotFoundException {
+    public OrderDto getOrder(@RequestParam Long orderId) throws OrderNotFoundException {
         return mapper.mapToOrderDto(service.findById(orderId)
-                .orElseThrow(UserNotFoundException::new));
+                .orElseThrow(OrderNotFoundException::new));
     }
 
     @RequestMapping(method = RequestMethod.PUT,value = "updateOrder")
@@ -48,6 +49,7 @@ public class OrderController {
         Order savedOrder = service.save(order);
         return mapper.mapToOrderDto(savedOrder);
     }
+
 
     @RequestMapping(method = RequestMethod.DELETE,value = "deleteOrder")
     public void deleteOrder(@RequestParam Long orderId){

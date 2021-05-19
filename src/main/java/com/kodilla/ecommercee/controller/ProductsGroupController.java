@@ -1,21 +1,19 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.ProductsGroupDto;
-import com.kodilla.ecommercee.domain.ProductsGroupNotFoundException;
 import com.kodilla.ecommercee.domain.ProductsGroup;
+import com.kodilla.ecommercee.exception.ProductsGroupNotFoundException;
 import com.kodilla.ecommercee.mapper.ProductsGroupMapper;
 import com.kodilla.ecommercee.service.ProductsGroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/v1/groups")
 @RequiredArgsConstructor
 public class ProductsGroupController {
-
 
     private final ProductsGroupService service;
     private final ProductsGroupMapper productsGroupMapper;
