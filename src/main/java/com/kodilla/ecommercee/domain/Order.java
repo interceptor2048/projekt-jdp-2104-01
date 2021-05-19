@@ -37,10 +37,10 @@ public class Order {
     )
     private List<Product> productList = new ArrayList<>();
 
-//    public Order(User user, LocalDateTime orderDate) {
-//        this.user = user;
-//        this.orderDate = orderDate;
-//    }
+    public Order(User user, LocalDateTime orderDate) {
+        this.user = user;
+        this.orderDate = orderDate;
+    }
 
     public Order(LocalDateTime orderDate){
         this.orderDate = orderDate;
