@@ -29,16 +29,11 @@ public class UserController {
         return userMapper.mapToUserDto(service.getUser(userId).orElseThrow(UserNotFoundException::new));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "updateUserDto")
+    @RequestMapping(method = RequestMethod.PUT, value = "updateUser")
     public UserDto updateUserDto(@RequestBody UserDto userDto) {
         User user = userMapper.mapToUser(userDto);
         User savedUser = service.saveUser(user);
         return userMapper.mapToUserDto(savedUser);
-    }
-
-    @RequestMapping(method = RequestMethod.PUT, value = "updateUser")
-    public User updateUser(@RequestBody User user) {
-        return service.saveUser(user);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "generateUserKey")
