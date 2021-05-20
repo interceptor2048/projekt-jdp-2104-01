@@ -68,25 +68,28 @@ public class UserTest {
         cartDao.delete(cart);
     }
 
+
     @Test
     public void testOrderConnection(){
         //given
-        User user = new User("create", 1,
-                "createKey");
+        User user = new User("userOrderRelationshipUser", 1,
+                "userOrderRelationshipUserKey");
         Cart cart = new Cart();
         cart = cartDao.save(cart);
         user.setCart(cart);
+        cart.setUser(user);
         userDao.save(user);
         Order order = new Order(user, LocalDateTime.now());
-        //when
         orderDao.save(order);
-        long orderId = order.getId();
-        String name = order.getUser().getUsername();
-        //then
-        assertNotEquals(0L, orderId);
-        assertEquals("create", name);
+        //when&then
+        long userId = user.getId();
+        long orderUserId = order.getUser().getId();
+        assertEquals(userId, orderUserId);
+
         //clean
+        Long orderId = order.getId();
         orderDao.deleteById(orderId);
-        userDao.delete(user);
+        userDao.deleteById(userId);
+        cartDao.delete(cart);
     }
 }
