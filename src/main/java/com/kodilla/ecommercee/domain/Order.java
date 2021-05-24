@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -11,16 +12,16 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "ORDERS")
 public class Order {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;
@@ -47,4 +48,7 @@ public class Order {
         this.orderDate = orderDate;
     }
 
+    public Order(LocalDateTime orderDate){
+        this.orderDate = orderDate;
+    }
 }
