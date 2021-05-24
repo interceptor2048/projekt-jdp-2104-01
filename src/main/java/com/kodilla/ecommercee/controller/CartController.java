@@ -8,6 +8,7 @@ import com.kodilla.ecommercee.service.CartDbService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,17 +24,17 @@ public class CartController {
     @PostMapping(value = "createCart")
     public void createCart(@RequestParam Long userId, @RequestParam String userKey) throws UserNotFoundException,
             UserNotAuthenticatedException {
-         cartService.createCart(userId, userKey);
+        cartService.createCart(userId, userKey);
     }
 
     @GetMapping(value = "getCartProducts")
-    public List<ProductDto> getCartProducts (@RequestParam Long cartId, @RequestParam String userKey){
+    public List<ProductDto> getCartProducts(@RequestParam Long cartId, @RequestParam String userKey) {
         try {
             List<Product> products = cartService.getCartProducts(cartId, userKey);
             return products.stream()
                     .map(productMapper::mapToProductDto)
                     .collect(Collectors.toList());
-        } catch (CartNotFoundException | UserNotAuthenticatedException e){
+        } catch (CartNotFoundException | UserNotAuthenticatedException e) {
             return new ArrayList<>();
         }
     }
