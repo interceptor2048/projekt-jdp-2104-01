@@ -55,5 +55,4 @@ public class OrderController {
     public void deleteOrder(@RequestParam Long orderId){
         service.deleteOrderById(orderId);
     }
-
 }

@@ -34,14 +34,14 @@ public class ProductController {
 
     @PostMapping(value = "createProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ProductDto createProduct(@RequestBody ProductDto productDto) throws com.kodilla.ecommercee.exception.ProductsGroupNotFoundException {
-            Product product = productMapper.mapToProduct(productDto);
-            Product createdProduct = productDbService.saveProduct(new Product(
-                    product.getName(),
-                    product.getDescription(),
-                    product.getPrice(),
-                    product.getProductsGroup()
-            ));
-            return productMapper.mapToProductDto(createdProduct);
+        Product product = productMapper.mapToProduct(productDto);
+        Product createdProduct = productDbService.saveProduct(new Product(
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getProductsGroup()
+        ));
+        return productMapper.mapToProductDto(createdProduct);
     }
 
     @PutMapping(value = "updateProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
