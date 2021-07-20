@@ -11,28 +11,28 @@ import java.util.List;
 @RequestMapping("v1/orders")
 public class OrderController {
 
-    @RequestMapping(method = RequestMethod.GET,value = "getOrders")
-    public List<OrderDto> getOrders(){
+    @RequestMapping(method = RequestMethod.GET, value = "getOrders")
+    public List<OrderDto> getOrders() {
         return new ArrayList<>();
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "createOrder")
-    public void createOrder(@RequestBody OrderDto orderDto){
+    @RequestMapping(method = RequestMethod.POST, value = "createOrder")
+    public void createOrder(@RequestBody OrderDto orderDto) {
         return;
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "getOrder")
-    public OrderDto getOrder(@RequestParam Long orderId){
+    @RequestMapping(method = RequestMethod.GET, value = "getOrder")
+    public OrderDto getOrder(@RequestParam Long orderId) {
         return null;
     }
 
-    @RequestMapping(method = RequestMethod.PUT,value = "updateOrder")
-    public OrderDto updateOrder(@RequestBody OrderDto orderDto){
+    @RequestMapping(method = RequestMethod.PUT, value = "updateOrder")
+    public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
         return null;
     }
 
-    @RequestMapping(method = RequestMethod.DELETE,value = "deleteOrder")
-    public void deleteOrder(@RequestParam Long orderId){
+    @RequestMapping(method = RequestMethod.DELETE, value = "deleteOrder")
+    public void deleteOrder(@RequestParam Long orderId) {
         return;
     }
 
